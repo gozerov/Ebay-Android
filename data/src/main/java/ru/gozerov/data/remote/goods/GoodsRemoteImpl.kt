@@ -2,10 +2,11 @@ package ru.gozerov.data.remote.goods
 
 import ru.gozerov.data.models.GoodData
 import ru.gozerov.data.models.toAddRequestBody
+import ru.gozerov.data.remote.goods.retrofit.GoodsApi
 import javax.inject.Inject
 
 class GoodsRemoteImpl @Inject constructor(
-    private val goodsApi: GoodsApi
+    private val goodsApi: GoodsApi,
 ): GoodsRemote {
 
     override suspend fun getGoods(): List<GoodData> = goodsApi.getGoods().goods

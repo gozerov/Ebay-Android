@@ -1,4 +1,4 @@
-package ru.gozerov.data.remote.goods
+package ru.gozerov.data.remote.goods.retrofit
 
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.runBlocking

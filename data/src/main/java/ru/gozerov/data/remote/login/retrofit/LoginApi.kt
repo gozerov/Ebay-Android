@@ -1,4 +1,4 @@
-package ru.gozerov.data.remote.login
+package ru.gozerov.data.remote.login.retrofit
 
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.runBlocking

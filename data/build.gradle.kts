@@ -56,4 +56,7 @@ dependencies {
     //Dagger2
     implementation("com.google.dagger:dagger:2.46")
     kapt("com.google.dagger:dagger-compiler:2.46")
+
+    //jetpack paging 3
+    implementation("androidx.paging:paging-runtime-ktx:3.2.0")
 }

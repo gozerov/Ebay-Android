@@ -10,8 +10,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.gozerov.data.remote.goods.GoodsApi
-import ru.gozerov.data.remote.login.LoginApi
+import ru.gozerov.data.remote.goods.retrofit.GoodsApi
+import ru.gozerov.data.remote.login.retrofit.LoginApi
+import ru.gozerov.data.utils.dispatchers.Constants.API_TOKEN
+import ru.gozerov.data.utils.dispatchers.Constants.BASE_URL
+import ru.gozerov.data.utils.dispatchers.Constants.SHARED_PREFERENCES_NAME
 import ru.gozerov.data.utils.dispatchers.Dispatcher
 import javax.inject.Singleton
 
@@ -23,34 +26,22 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor() : HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMoshiConverterFactory() : MoshiConverterFactory {
-        return MoshiConverterFactory.create(Moshi.Builder().build())
-    }
-
-    @Provides
-    @Singleton
     fun provideSharedPreferences(context: Context) : SharedPreferences {
-        return context.getSharedPreferences("EbaySharedPreferences", Context.MODE_PRIVATE)
+        return context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
 
     @Provides
     fun provideToken(sharedPreferences: SharedPreferences) : String {
-        return sharedPreferences.getString("API_TOKEN", "") ?: ""
+        return sharedPreferences.getString(API_TOKEN, "") ?: ""
     }
 
     @Provides
     @Singleton
     fun provideRetrofit(
-        moshiConverterFactory: MoshiConverterFactory,
-        loggingInterceptor: HttpLoggingInterceptor,
         token: String
     ): Retrofit {
+        val moshiConverterFactory = MoshiConverterFactory.create(Moshi.Builder().build())
+        val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
@@ -60,7 +51,7 @@ class AppModule {
             }
             .build()
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080")
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(moshiConverterFactory)
             .build()

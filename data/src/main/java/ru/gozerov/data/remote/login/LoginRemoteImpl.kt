@@ -3,6 +3,7 @@ package ru.gozerov.data.remote.login
 import ru.gozerov.data.remote.login.models.DataToken
 import ru.gozerov.data.remote.login.models.SignInRequestBody
 import ru.gozerov.data.remote.login.models.SignUpRequestBody
+import ru.gozerov.data.remote.login.retrofit.LoginApi
 import javax.inject.Inject
 
 class LoginRemoteImpl @Inject constructor(
