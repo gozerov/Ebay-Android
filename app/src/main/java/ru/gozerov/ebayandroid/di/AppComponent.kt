@@ -3,14 +3,15 @@ package ru.gozerov.ebayandroid.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.gozerov.ebayandroid.MainActivity
+import ru.gozerov.presentation.activity.MainActivity
+import ru.gozerov.presentation.utils.DependenciesContainer
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class])
-interface AppComponent {
+interface AppComponent : DependenciesContainer {
 
-    fun inject(mainActivity: MainActivity)
+    override fun inject(activity: MainActivity)
 
     @Component.Builder
     interface Builder {

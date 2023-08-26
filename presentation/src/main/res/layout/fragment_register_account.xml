@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_login"
+        android:text="@string/register_account"
+        android:textSize="@dimen/font24"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginBetweenWelcomeBackAndEntering"
+        android:text="@string/enter_email_to_register"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_login"
+        android:text="@string/email"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInputLayout"
+        style="@style/TextInputLayoutStyle.Default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginBetweenWelcomeBackAndEntering">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextInputEditText.Default"
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_your_email_address"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@id/continueButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sign_in_button_height"
+        android:background="@drawable/sign_in_button_background"
+        android:layout_marginTop="@dimen/default_big_margin"
+        android:text="@string/_continue"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/login_margin_bottom"
+        android:layout_weight="1"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/txtSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Have an Account? Sign In"
+            android:layout_gravity="center_horizontal|bottom"/>
+
+    </FrameLayout>
+
+</LinearLayout>

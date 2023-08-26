@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_start">24dp</dimen>
+    <dimen name="toolbar_title_size">16sp</dimen>
+    <dimen name="margin_end">24dp</dimen>
+    <dimen name="marginBetweenToolbarActions">20dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="font24">24sp</dimen>
+    <dimen name="default_big_margin">72dp</dimen>
+    <dimen name="marginBetweenWelcomeBackAndEntering">20dp</dimen>
+    <dimen name="margin_login">24dp</dimen>
+    <dimen name="marginPassword">28dp</dimen>
+    <dimen name="sign_in_button_height">48dp</dimen>
+    <dimen name="login_margin_bottom">16dp</dimen>
+    <dimen name="verification_code_text_size">12sp</dimen>
+</resources>

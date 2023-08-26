@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.EbayMainTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/blue_ocean</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+    </style>
+
+    <style name="BottomNavigationViewStyle">
+        <item name="itemRippleColor">@color/blue_ocean</item>
+        <item name="itemIconTint">@drawable/bottom_item_color</item>
+        <item name="itemTextColor">@drawable/bottom_item_color</item>
+        <item name="android:textSize">12sp</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+
+    <style name="TextInputLayoutStyle.Default" parent="TextInputLayoutStyle">
+        <item name="hintEnabled">false</item>
+        <item name="boxBackgroundColor">@color/grey_light</item>
+        <item name="boxStrokeColor">@color/grey_light</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="TextInputEditText"/>
+    <style name="TextInputEditText.Default">
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textCursorDrawable">@drawable/edit_text_cursor_drawable</item>
+    </style>
+
+</resources>
