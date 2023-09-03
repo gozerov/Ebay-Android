@@ -3,6 +3,7 @@ package ru.gozerov.presentation.screens.login.enter_new_password
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.models.NewPassword
+import ru.gozerov.domain.usecases.CancelVerification
 import ru.gozerov.domain.usecases.EnterNewPassword
 import ru.gozerov.presentation.utils.BaseViewModel
 import javax.inject.Inject

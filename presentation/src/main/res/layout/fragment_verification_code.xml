@@ -40,7 +40,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/txtCode"
+            android:id="@+id/txtResendCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,20 +57,30 @@
         android:layout_marginTop="@dimen/marginBetweenWelcomeBackAndEntering"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtCode"
+        app:layout_constraintTop_toBottomOf="@id/txtResendCode"
         app:cellHeight="24dp"
         android:textSize="18sp"
         app:innerMargin="4dp"
         app:textViewCount="4"/>
 
     <TextView
-        android:id="@+id/txtResetCodeTimer"
+        android:id="@+id/txtResetCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/verificationCodeView"
-        tools:text="You can re-send code in 3:00"/>
+        android:text="@string/you_can_re_send_code_in"/>
+
+    <TextView
+        android:id="@+id/txtResetCodeTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verificationCodeView"
+        tools:text="3:00"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/continueButton"

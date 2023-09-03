@@ -12,4 +12,6 @@ sealed class ResetPasswordViewState : ViewState {
 
     object UnknownError : ResetPasswordViewState()
 
+    object VerificationIsUnavailable : ResetPasswordViewState()
+
 }

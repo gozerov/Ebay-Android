@@ -66,7 +66,7 @@ class ResetPasswordFragment : BaseFragment<ResetPasswordViewModel<ResetPasswordI
                     when(state) {
                         is ResetPasswordViewState.Empty -> {}
                         is ResetPasswordViewState.Success -> {
-                            findNavigationProvider().getRouter().navigateTo(Screens.verificationCode(NEW_PASSWORD))
+                            findNavigationProvider().getRouter().replaceScreen(Screens.verificationCode(NEW_PASSWORD, binding.emailEditText.text.toString()))
                         }
                         is ResetPasswordViewState.InvalidEmail -> {
                             setEmailAvailability(isEnabled = true)
@@ -75,6 +75,10 @@ class ResetPasswordFragment : BaseFragment<ResetPasswordViewModel<ResetPasswordI
                         is ResetPasswordViewState.UnknownError -> {
                             setEmailAvailability(isEnabled = true)
                             showShortSnackbar(getString(R.string.unknown_error))
+                        }
+                        is ResetPasswordViewState.VerificationIsUnavailable -> {
+                            setEmailAvailability(isEnabled = true)
+                            showShortSnackbar(getString(R.string.verification_is_unavailable))
                         }
                     }
                 }

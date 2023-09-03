@@ -67,7 +67,7 @@ class RegisterAccountFragment : BaseFragment<RegisterAccountViewModel<RegisterAc
                     when(state) {
                         is RegisterAccountViewState.Empty -> {}
                         is RegisterAccountViewState.Success -> {
-                            findNavigationProvider().getRouter().navigateTo(Screens.verificationCode(SET_ACCOUNT_DATA))
+                            findNavigationProvider().getRouter().replaceScreen(Screens.verificationCode(SET_ACCOUNT_DATA, binding.emailEditText.text.toString()))
                         }
                         is RegisterAccountViewState.AccountAlreadyExist -> {
                             setRegisterAvailability(true)

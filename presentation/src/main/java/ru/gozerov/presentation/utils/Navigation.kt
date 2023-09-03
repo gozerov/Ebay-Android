@@ -47,12 +47,11 @@ object Screens {
 
     fun forgotPassword() = FragmentScreen { ResetPasswordFragment() }
 
-    fun verificationCode(navDestination: NAV_DESTINATION) = FragmentScreen { VerificationCodeFragment.newInstance(navDestination) }
-
+    fun verificationCode(navDestination: NAV_DESTINATION, email: String) = FragmentScreen {
+        VerificationCodeFragment.newInstance(navDestination, email)
+    }
 
     fun enterNewPassword() = FragmentScreen { EnterNewPasswordFragment() }
-
-
 
     fun homePage() = FragmentScreen { HomePageFragment() }
     fun registerAccount() = FragmentScreen { RegisterAccountFragment() }

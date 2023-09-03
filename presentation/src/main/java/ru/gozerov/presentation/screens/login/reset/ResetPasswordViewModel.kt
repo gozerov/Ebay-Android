@@ -3,6 +3,7 @@ package ru.gozerov.presentation.screens.login.reset
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.usecases.ResetPasswordByEmail
+import ru.gozerov.presentation.screens.login.verification.VerificationCodeViewState
 import ru.gozerov.presentation.utils.BaseViewModel
 import ru.gozerov.presentation.utils.HttpErrors
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class ResetPasswordViewModel<T, U> @Inject constructor(
                         onHttpError = {
                             when(it) {
                                 HttpErrors.USER_NOT_FOUND -> _viewState.emit(ResetPasswordViewState.InvalidEmail)
+                                HttpErrors.NOT_ENOUGH_TIME -> _viewState.emit(ResetPasswordViewState.VerificationIsUnavailable)
                                 else -> _viewState.emit(ResetPasswordViewState.UnknownError)
                             }
                         },

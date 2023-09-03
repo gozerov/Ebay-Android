@@ -48,4 +48,9 @@
     <string name="passwords_don_t_match">Passwords don`t match</string>
     <string name="account_already_exist">Account already exist</string>
     <string name="username_must_be_3">Username must be at least 3 characters</string>
+    <string name="we_have_sent_code_to">We have sent a verification code to %1$s Change?</string>
+    <string name="change">Change?</string>
+    <string name="timer_sec">0:%1$s</string>
+    <string name="you_can_re_send_code_in">You can re-send code in</string>
+    <string name="verification_is_unavailable">Verification is unavailable</string>
 </resources>

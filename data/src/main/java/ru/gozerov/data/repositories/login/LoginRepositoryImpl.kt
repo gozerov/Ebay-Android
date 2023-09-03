@@ -3,6 +3,7 @@ package ru.gozerov.data.repositories.login
 import kotlinx.coroutines.withContext
 import ru.gozerov.data.cache.SharedPreferencesStorage
 import ru.gozerov.data.remote.login.LoginRemote
+import ru.gozerov.data.remote.login.models.CancelVerificationRequestBody
 import ru.gozerov.data.remote.login.models.ConfirmPasswordRequestBody
 import ru.gozerov.data.remote.login.models.ResetPasswordRequestBody
 import ru.gozerov.data.remote.login.models.SetAccountDataRequestBody
@@ -67,6 +68,11 @@ class LoginRepositoryImpl @Inject constructor(
             code = code
         )
         return@withContext loginRemote.submitVerificationCode(verificationCode).toVerificationResponseBody()
+    }
+
+    override suspend fun cancelVerification() = withContext(dispatcher.value) {
+        val token = sharedPreferencesStorage.readString(API_VERIFICATION_TOKEN).toString()
+        loginRemote.cancelVerification(CancelVerificationRequestBody(token))
     }
 
     override suspend fun updatePassword(arg: NewPassword) = withContext(dispatcher.value) {

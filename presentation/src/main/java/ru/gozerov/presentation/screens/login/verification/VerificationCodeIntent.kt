@@ -6,6 +6,10 @@ sealed class VerificationCodeIntent : Intent {
 
     object StartScreen : VerificationCodeIntent()
 
+    data class ResendCode(
+        val email: String
+    ) : VerificationCodeIntent()
+
     data class ConfirmVerificationCode(
         val code: Int
     ) : VerificationCodeIntent()

@@ -16,6 +16,7 @@ import ru.gozerov.presentation.databinding.FragmentSignInBinding
 import ru.gozerov.presentation.screens.home.HomePageFragment
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.Screens
+import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
 import ru.gozerov.presentation.utils.hideKeyboard
@@ -29,7 +30,6 @@ class SignInFragment : BaseFragment<SignInViewModel<SignInIntent, SignInViewStat
     override fun setNavigator() {
         findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerGlobal)
     }
-
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
         super.onAttach(context)

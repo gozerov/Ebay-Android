@@ -1,7 +1,13 @@
 package ru.gozerov.presentation.screens.login.verification
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +32,7 @@ import ru.gozerov.presentation.utils.showShortSnackbar
 class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<VerificationCodeIntent, VerificationCodeViewState>>() {
 
     private lateinit var binding: FragmentVerificationCodeBinding
+
     override val viewModel: VerificationCodeViewModel<VerificationCodeIntent, VerificationCodeViewState> by viewModels { factory }
 
     override var toolbarType: ToolbarHolder.ToolbarType = ToolbarHolder.ToolbarType.NONE
@@ -55,6 +62,13 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
             viewModel.handleIntent(VerificationCodeIntent.ConfirmVerificationCode(binding.verificationCodeView.text.toInt()))
         }
 
+        binding.txtResendCode.setOnClickListener {
+            val email = arguments?.getString(ARG_EMAIL).toString()
+            viewModel.handleIntent(VerificationCodeIntent.ResendCode(email))
+        }
+
+        setChangeEmailSpan()
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect { state ->
@@ -73,6 +87,15 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
                         is VerificationCodeViewState.UnknownError -> {
                             setVerificationAvailability(isEnabled = true)
                             showShortSnackbar(getString(R.string.unknown_error))
+                        }
+                        is VerificationCodeViewState.ResendUnavailable -> {
+                            showShortSnackbar(getString(R.string.verification_is_unavailable))
+                        }
+                        is VerificationCodeViewState.Timer -> {
+                            binding.txtResetCodeTimer.text = getString(R.string.timer_sec, state.time)
+                        }
+                        is VerificationCodeViewState.TimerEnd -> {
+                            binding.txtResetCodeTimer.text = ""
                         }
                     }
                 }
@@ -94,15 +117,50 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
     private fun setVerificationAvailability(isEnabled: Boolean) {
         binding.continueButton.isEnabled = isEnabled
         binding.verificationCodeView.setIsEditTextEnabled(isEnabled)
+        binding.txtResetCode.visibility = View.GONE
+        binding.txtResetCodeTimer.visibility = View.GONE
+    }
+
+    private fun setChangeEmailSpan() {
+        val email = arguments?.getString(ARG_EMAIL)
+        email?.run {
+            val changeEmailClickable = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    findNavigationProvider().getRouter().exit()
+                }
+
+                override fun updateDrawState(ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.color = requireContext().getColor(R.color.blue_ocean)
+                    ds.isUnderlineText = false
+                }
+            }
+
+            val changeEmailText = getString(R.string.change)
+            val text = getString(R.string.we_have_sent_code_to, this)
+            val spannableString = SpannableString(text)
+            spannableString.setSpan(
+                changeEmailClickable,
+                text.indexOf(changeEmailText),
+                text.indexOf(changeEmailText) + changeEmailText.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            binding.txtChangeEmail.run {
+                this.text = spannableString
+                movementMethod = LinkMovementMethod.getInstance()
+                highlightColor = Color.TRANSPARENT
+            }
+        }
     }
 
     companion object {
 
         private const val ARG_DESTINATION = "arg_destination"
+        private const val ARG_EMAIL = "arg_email"
 
-        fun newInstance(navDestination: NAV_DESTINATION): VerificationCodeFragment {
+        fun newInstance(navDestination: NAV_DESTINATION, email: String): VerificationCodeFragment {
             val fragment = VerificationCodeFragment()
-            fragment.arguments = bundleOf(ARG_DESTINATION to navDestination)
+            fragment.arguments = bundleOf(ARG_DESTINATION to navDestination, ARG_EMAIL to email)
             return fragment
         }
 

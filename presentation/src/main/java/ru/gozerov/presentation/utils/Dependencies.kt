@@ -2,6 +2,7 @@ package ru.gozerov.presentation.utils
 
 import android.content.Context
 import ru.gozerov.presentation.activity.MainActivity
+import ru.gozerov.presentation.screens.home.HomePageFragment
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordFragment
 import ru.gozerov.presentation.screens.login.reset.ResetPasswordFragment
 import ru.gozerov.presentation.screens.login.sign_in.SignInFragment
@@ -22,6 +23,7 @@ interface DependenciesContainer {
     fun inject(verificationCodeFragment: VerificationCodeFragment)
     fun inject(enterNewPasswordFragment: EnterNewPasswordFragment)
     fun inject(setAccountDataFragment: SetAccountDataFragment)
+    fun inject(homePageFragment: HomePageFragment)
 
 }
 

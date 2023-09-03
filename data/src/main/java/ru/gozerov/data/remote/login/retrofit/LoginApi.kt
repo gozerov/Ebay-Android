@@ -13,6 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
+import ru.gozerov.data.remote.login.models.CancelVerificationRequestBody
 import ru.gozerov.data.remote.login.models.ConfirmPasswordRequestBody
 import ru.gozerov.data.remote.login.models.DataToken
 import ru.gozerov.data.remote.login.models.LoginResponseBody
@@ -43,6 +44,9 @@ interface LoginApi {
 
     @POST("/verification")
     suspend fun verification(@Body verificationRequestBody: VerificationRequestBody) : VerificationCodeResponse
+
+    @POST("/verification/cancel")
+    suspend fun cancelVerification(@Body cancelVerificationRequestBody: CancelVerificationRequestBody)
 
     @POST("/password")
     suspend fun confirmPassword(@Body confirmPasswordRequestBody: ConfirmPasswordRequestBody)

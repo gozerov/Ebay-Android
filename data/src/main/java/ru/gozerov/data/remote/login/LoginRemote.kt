@@ -1,5 +1,6 @@
 package ru.gozerov.data.remote.login
 
+import ru.gozerov.data.remote.login.models.CancelVerificationRequestBody
 import ru.gozerov.data.remote.login.models.ConfirmPasswordRequestBody
 import ru.gozerov.data.remote.login.models.DataToken
 import ru.gozerov.data.remote.login.models.ResetPasswordRequestBody
@@ -21,6 +22,8 @@ interface LoginRemote {
     suspend fun resetPasswordByEmail(resetPasswordRequestBody: ResetPasswordRequestBody) : DataToken
 
     suspend fun submitVerificationCode(verificationRequestBody: VerificationRequestBody) : VerificationCodeResponse
+
+    suspend fun cancelVerification(cancelVerificationRequestBody: CancelVerificationRequestBody)
 
     suspend fun updatePassword(confirmPasswordRequestBody: ConfirmPasswordRequestBody)
 

@@ -12,4 +12,12 @@ sealed class VerificationCodeViewState : ViewState {
 
     object UnknownError : VerificationCodeViewState()
 
+    object ResendUnavailable : VerificationCodeViewState()
+
+    data class Timer(
+        val time: String
+    ) : VerificationCodeViewState()
+
+    object TimerEnd: VerificationCodeViewState()
+
 }

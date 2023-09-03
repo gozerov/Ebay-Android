@@ -20,6 +20,8 @@ interface LoginRepository {
 
     suspend fun submitVerificationCode(code: Int) : VerificationResponseBody
 
+    suspend fun cancelVerification()
+
     suspend fun updatePassword(arg: NewPassword)
 
 }
