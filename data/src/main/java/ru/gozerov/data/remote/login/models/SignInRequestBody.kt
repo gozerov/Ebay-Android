@@ -3,13 +3,13 @@ package ru.gozerov.data.remote.login.models
 import ru.gozerov.domain.models.SignInBody
 
 data class SignInRequestBody(
-    val login: String,
+    val email: String,
     val password: String
 )
 
 
 fun SignInBody.toSignInRequestBody() : SignInRequestBody = SignInRequestBody(
-    login = login,
+    email = email,
     password = password
 )
 

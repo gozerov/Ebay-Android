@@ -46,7 +46,8 @@ class VerificationCodeView(
 
     var onTextChangedListener: ((String) -> Unit)? = null
 
-    private var text = ""
+    var text = ""
+        private set
 
     init {
         if (attrs != null) initAttrs(context, attrs, defStyleAttr, defStyleRes)
@@ -100,15 +101,21 @@ class VerificationCodeView(
         this.addView(editText)
     }
 
-    private fun fillText(t: List<String?>) {
-        t.forEachIndexed { i, c ->
-            textViews[i].text = c
-        }
+    fun setIsEditTextEnabled(isEnabled: Boolean) {
+        val editText = this.children.first {it is EditText} as EditText
+        editText.isFocusable = isEnabled
+        editText.isFocusableInTouchMode = isEnabled
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         updateViewSizes()
+    }
+
+    private fun fillText(t: List<String?>) {
+        t.forEachIndexed { i, c ->
+            textViews[i].text = c
+        }
     }
 
     private fun initAttrs(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) {

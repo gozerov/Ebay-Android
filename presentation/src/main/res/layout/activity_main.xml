@@ -17,9 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back_24"
-            android:layout_marginStart="@dimen/margin_start"
+            android:layout_marginStart="@dimen/margin_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="8dp"
+            android:paddingVertical="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/navigate_up" />
 
@@ -76,7 +78,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerEmpty"
+        android:id="@+id/fragmentContainerGlobal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="ru.gozerov.presentation.screens.tabs.TabsFragment"

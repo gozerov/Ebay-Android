@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ebay Android</string>
     <string name="navigate_up">Navigate Up</string>
@@ -37,4 +38,14 @@
     <string name="full_name">Full Name</string>
     <string name="your_name">Your name</string>
     <string name="confirm">Confirm</string>
+    <string name="user_not_found">User not found</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="password_must_be_6">Password must be at least 6 characters</string>
+    <string name="email_must_be_5">Email must be at least 5 characters</string>
+    <string name="email_isn_t_valid">Email isn`t valid</string>
+    <string name="code_is_not_valid">Code is not valid</string>
+    <string name="passwords_don_t_match">Passwords don`t match</string>
+    <string name="account_already_exist">Account already exist</string>
+    <string name="username_must_be_3">Username must be at least 3 characters</string>
 </resources>

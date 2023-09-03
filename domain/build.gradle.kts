@@ -47,6 +47,9 @@ dependencies {
     implementation("com.google.dagger:dagger:2.46")
     kapt("com.google.dagger:dagger-compiler:2.46")
 
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.8.1")
+
     //jetpack paging 3
     implementation("androidx.paging:paging-runtime-ktx:3.2.0")
 }

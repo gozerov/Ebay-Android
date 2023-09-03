@@ -7,27 +7,22 @@ import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.gozerov.presentation.R
 import ru.gozerov.presentation.screens.home.HomePageFragment
-import ru.gozerov.presentation.screens.login.verification.VerificationCodeFragment
+import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordFragment
+import ru.gozerov.presentation.screens.login.reset.ResetPasswordFragment
 import ru.gozerov.presentation.screens.login.sign_in.SignInFragment
+import ru.gozerov.presentation.screens.login.sign_up.account_data.SetAccountDataFragment
+import ru.gozerov.presentation.screens.login.sign_up.email.RegisterAccountFragment
+import ru.gozerov.presentation.screens.login.verification.VerificationCodeFragment
+import ru.gozerov.presentation.screens.login.verification.VerificationCodeFragment.Companion.NAV_DESTINATION
 import ru.gozerov.presentation.screens.tabs.TabsFragment
-import ru.gozerov.presentation.utils.NavigatorType.GLOBAL
 
 interface AppNavigationProvider {
 
     val cicerone: Cicerone<Router>
 
-    fun setNavigator(activity: FragmentActivity, type: NavigatorType) {
-        val navigator: AppNavigator = when(type) {
-            GLOBAL -> {
-                AppNavigator(activity, GlobalContainerId)
-            }
-            else -> {
-                AppNavigator(activity, TabsContainerId)
-            }
-        }
-        cicerone.getNavigatorHolder().setNavigator(navigator)
+    fun setNavigator(activity: FragmentActivity, containerId: Int) {
+        cicerone.getNavigatorHolder().setNavigator(AppNavigator(activity, containerId))
     }
 
     fun removeNavigator() {
@@ -36,17 +31,7 @@ interface AppNavigationProvider {
 
     fun getRouter() : Router = cicerone.router
 
-    companion object {
-        val GlobalContainerId = R.id.fragmentContainerEmpty
-        val TabsContainerId = R.id.fragmentContainerTabs
-    }
-
 }
-
-enum class NavigatorType {
-    GLOBAL, TABS, HOME, WISHLIST, ORDER, ACCOUNT
-}
-
 fun Context.findNavigationProvider() : AppNavigationProvider {
     return this.applicationContext as AppNavigationProvider
 }
@@ -56,12 +41,21 @@ fun Fragment.findNavigationProvider() : AppNavigationProvider {
 }
 
 object Screens {
-
     fun tabs() = FragmentScreen { TabsFragment() }
 
     fun signIn() = FragmentScreen { SignInFragment() }
-    fun verificationCode() = FragmentScreen { VerificationCodeFragment() }
+
+    fun forgotPassword() = FragmentScreen { ResetPasswordFragment() }
+
+    fun verificationCode(navDestination: NAV_DESTINATION) = FragmentScreen { VerificationCodeFragment.newInstance(navDestination) }
+
+
+    fun enterNewPassword() = FragmentScreen { EnterNewPasswordFragment() }
+
+
 
     fun homePage() = FragmentScreen { HomePageFragment() }
+    fun registerAccount() = FragmentScreen { RegisterAccountFragment() }
+    fun setAccountData() = FragmentScreen { SetAccountDataFragment() }
 
 }

@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 class PerformSignUp @Inject constructor(
     private val loginRepository: LoginRepository
-) : UseCase<SignUpBody, Token>() {
+) : UseCase<String, Unit>() {
 
-    override suspend fun loadData(arg: SignUpBody): Token {
-       return loginRepository.signUp(arg)
+    override suspend fun loadData(arg: String) {
+       loginRepository.signUp(SignUpBody(arg))
     }
 
 }

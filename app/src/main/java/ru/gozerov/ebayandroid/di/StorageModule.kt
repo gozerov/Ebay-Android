@@ -16,7 +16,7 @@ class StorageModule {
 
     @Provides
     fun provideToken(sharedPreferences: SharedPreferences) : String {
-        return sharedPreferences.getString(Constants.API_TOKEN, "") ?: ""
+        return sharedPreferences.getString(Constants.API_LOGIN_TOKEN, "") ?: ""
     }
 
 }
