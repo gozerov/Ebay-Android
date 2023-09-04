@@ -3,16 +3,16 @@ package ru.gozerov.presentation.screens.login.verification
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.gozerov.domain.usecases.CancelVerification
+import ru.gozerov.domain.usecases.PerformSignUp
 import ru.gozerov.domain.usecases.PerformVerification
-import ru.gozerov.domain.usecases.ResetPasswordByEmail
 import ru.gozerov.presentation.utils.BaseViewModel
 import ru.gozerov.presentation.utils.HttpErrors
+import ru.gozerov.presentation.utils.log
 import javax.inject.Inject
 
 class VerificationCodeViewModel<T, U> @Inject constructor(
     private val performVerification: PerformVerification,
-    private val resetPasswordByEmail: ResetPasswordByEmail
+    private val performSignUp: PerformSignUp
 ): BaseViewModel<VerificationCodeIntent, VerificationCodeViewState>() {
 
     var isConfirmInProgress: Boolean = false
@@ -27,12 +27,13 @@ class VerificationCodeViewModel<T, U> @Inject constructor(
                     _viewState.emit(VerificationCodeViewState.Empty)
                 }
                 is VerificationCodeIntent.ResendCode -> {
-                    resetPasswordByEmail.execute(
+                    performSignUp.execute(
                         arg = intent.email,
                         onSuccess = {
                             startTimer()
                         },
                         onHttpError = {
+                            log(it)
                             when(it) {
                                 HttpErrors.NOT_ENOUGH_TIME -> _viewState.emit(VerificationCodeViewState.ResendUnavailable)
                                 else -> _viewState.emit(VerificationCodeViewState.UnknownError)

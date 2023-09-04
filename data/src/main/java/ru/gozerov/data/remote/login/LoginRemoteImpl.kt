@@ -1,6 +1,5 @@
 package ru.gozerov.data.remote.login
 
-import ru.gozerov.data.remote.login.models.CancelVerificationRequestBody
 import ru.gozerov.data.remote.login.models.ConfirmPasswordRequestBody
 import ru.gozerov.data.remote.login.models.DataToken
 import ru.gozerov.data.remote.login.models.ResetPasswordRequestBody
@@ -35,10 +34,6 @@ class LoginRemoteImpl @Inject constructor(
 
     override suspend fun submitVerificationCode(verificationRequestBody: VerificationRequestBody): VerificationCodeResponse {
         return loginApi.verification(verificationRequestBody)
-    }
-
-    override suspend fun cancelVerification(cancelVerificationRequestBody: CancelVerificationRequestBody) {
-        loginApi.cancelVerification(cancelVerificationRequestBody)
     }
 
     override suspend fun updatePassword(confirmPasswordRequestBody: ConfirmPasswordRequestBody) {

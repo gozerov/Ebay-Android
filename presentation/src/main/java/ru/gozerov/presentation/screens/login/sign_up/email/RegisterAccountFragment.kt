@@ -1,7 +1,13 @@
 package ru.gozerov.presentation.screens.login.sign_up.email
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +67,8 @@ class RegisterAccountFragment : BaseFragment<RegisterAccountViewModel<RegisterAc
                 showShortSnackbar(getString(R.string.email_must_be_5))
         }
 
+        setSignInSpan()
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect { state ->
@@ -84,6 +92,36 @@ class RegisterAccountFragment : BaseFragment<RegisterAccountViewModel<RegisterAc
 
         return binding.root
     }
+
+    private fun setSignInSpan() {
+        val signInClickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                findNavigationProvider().getRouter().exit()
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = requireContext().getColor(R.color.blue_ocean)
+                ds.isUnderlineText = false
+            }
+        }
+
+        val signInText = getString(R.string.sign_in)
+        val text = getString(R.string.have_an_account)
+        val spannableString = SpannableString(text)
+        spannableString.setSpan(
+            signInClickable,
+            text.indexOf(signInText),
+            text.indexOf(signInText) + signInText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.txtSignIn.run {
+            this.text = spannableString
+            movementMethod = LinkMovementMethod.getInstance()
+            highlightColor = Color.TRANSPARENT
+        }
+    }
+
 
     private fun setRegisterAvailability(isEnabled: Boolean) {
         binding.continueButton.isEnabled = isEnabled

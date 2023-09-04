@@ -4,18 +4,12 @@ import com.squareup.moshi.Moshi
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
-import ru.gozerov.data.remote.login.models.CancelVerificationRequestBody
 import ru.gozerov.data.remote.login.models.ConfirmPasswordRequestBody
-import ru.gozerov.data.remote.login.models.DataToken
 import ru.gozerov.data.remote.login.models.LoginResponseBody
 import ru.gozerov.data.remote.login.models.ResetPasswordRequestBody
 import ru.gozerov.data.remote.login.models.ResetPasswordResponseBody
@@ -24,9 +18,7 @@ import ru.gozerov.data.remote.login.models.SetAccountDataResponseBody
 import ru.gozerov.data.remote.login.models.SignInRequestBody
 import ru.gozerov.data.remote.login.models.SignUpRequestBody
 import ru.gozerov.data.remote.login.models.VerificationCodeResponse
-import ru.gozerov.domain.models.NewPassword
 import ru.gozerov.domain.models.VerificationRequestBody
-import kotlin.math.log
 
 interface LoginApi {
 
@@ -44,9 +36,6 @@ interface LoginApi {
 
     @POST("/verification")
     suspend fun verification(@Body verificationRequestBody: VerificationRequestBody) : VerificationCodeResponse
-
-    @POST("/verification/cancel")
-    suspend fun cancelVerification(@Body cancelVerificationRequestBody: CancelVerificationRequestBody)
 
     @POST("/password")
     suspend fun confirmPassword(@Body confirmPasswordRequestBody: ConfirmPasswordRequestBody)

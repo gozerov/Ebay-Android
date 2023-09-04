@@ -65,6 +65,9 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
         binding.txtResendCode.setOnClickListener {
             val email = arguments?.getString(ARG_EMAIL).toString()
             viewModel.handleIntent(VerificationCodeIntent.ResendCode(email))
+            setVerificationAvailability(isEnabled = false)
+            binding.txtResetCode.visibility = View.VISIBLE
+            binding.txtResetCodeTimer.visibility = View.VISIBLE
         }
 
         setChangeEmailSpan()
@@ -76,8 +79,8 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
                         is VerificationCodeViewState.Empty -> {}
                         is VerificationCodeViewState.Success -> {
                             when(arguments?.get(ARG_DESTINATION) as NAV_DESTINATION) {
-                                SET_ACCOUNT_DATA -> findNavigationProvider().getRouter().navigateTo(Screens.setAccountData())
-                                NEW_PASSWORD -> findNavigationProvider().getRouter().navigateTo(Screens.enterNewPassword())
+                                SET_ACCOUNT_DATA -> findNavigationProvider().getRouter().replaceScreen(Screens.setAccountData())
+                                NEW_PASSWORD -> findNavigationProvider().getRouter().replaceScreen(Screens.enterNewPassword())
                             }
                         }
                         is VerificationCodeViewState.NotValidCode -> {
@@ -89,13 +92,17 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
                             showShortSnackbar(getString(R.string.unknown_error))
                         }
                         is VerificationCodeViewState.ResendUnavailable -> {
+                            setVerificationAvailability(isEnabled = false)
                             showShortSnackbar(getString(R.string.verification_is_unavailable))
                         }
                         is VerificationCodeViewState.Timer -> {
                             binding.txtResetCodeTimer.text = getString(R.string.timer_sec, state.time)
                         }
                         is VerificationCodeViewState.TimerEnd -> {
+                            setVerificationAvailability(isEnabled = true)
                             binding.txtResetCodeTimer.text = ""
+                            binding.txtResetCode.visibility = View.GONE
+                            binding.txtResetCodeTimer.visibility = View.GONE
                         }
                     }
                 }
@@ -117,8 +124,6 @@ class VerificationCodeFragment : BaseFragment<VerificationCodeViewModel<Verifica
     private fun setVerificationAvailability(isEnabled: Boolean) {
         binding.continueButton.isEnabled = isEnabled
         binding.verificationCodeView.setIsEditTextEnabled(isEnabled)
-        binding.txtResetCode.visibility = View.GONE
-        binding.txtResetCodeTimer.visibility = View.GONE
     }
 
     private fun setChangeEmailSpan() {

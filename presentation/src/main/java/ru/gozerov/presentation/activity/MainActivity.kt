@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.addOnBackStackChangedListener {
-            log(supportFragmentManager.backStackEntryCount.toString())
-        }
         if (savedInstanceState == null)
             findNavigationProvider().getRouter().newRootScreen(Screens.tabs())
         binding.navigateUpButton.setOnClickListener {

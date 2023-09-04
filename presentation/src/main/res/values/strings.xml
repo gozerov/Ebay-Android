@@ -53,4 +53,5 @@
     <string name="timer_sec">0:%1$s</string>
     <string name="you_can_re_send_code_in">You can re-send code in</string>
     <string name="verification_is_unavailable">Verification is unavailable</string>
+    <string name="have_an_account">Have an Account? Sign In</string>
 </resources>

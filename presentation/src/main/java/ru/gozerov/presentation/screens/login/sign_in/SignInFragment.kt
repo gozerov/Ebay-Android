@@ -13,10 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentSignInBinding
-import ru.gozerov.presentation.screens.home.HomePageFragment
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.Screens
-import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
 import ru.gozerov.presentation.utils.hideKeyboard

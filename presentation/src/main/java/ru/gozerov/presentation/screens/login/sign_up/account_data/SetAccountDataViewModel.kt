@@ -3,7 +3,6 @@ package ru.gozerov.presentation.screens.login.sign_up.account_data
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.models.AccountDataRequestBody
-import ru.gozerov.domain.usecases.CancelVerification
 import ru.gozerov.domain.usecases.SetAccountData
 import ru.gozerov.presentation.utils.BaseViewModel
 import javax.inject.Inject

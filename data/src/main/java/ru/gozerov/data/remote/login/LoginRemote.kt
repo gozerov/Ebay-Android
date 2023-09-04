@@ -23,8 +23,6 @@ interface LoginRemote {
 
     suspend fun submitVerificationCode(verificationRequestBody: VerificationRequestBody) : VerificationCodeResponse
 
-    suspend fun cancelVerification(cancelVerificationRequestBody: CancelVerificationRequestBody)
-
     suspend fun updatePassword(confirmPasswordRequestBody: ConfirmPasswordRequestBody)
 
 
