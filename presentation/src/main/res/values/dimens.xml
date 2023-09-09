@@ -8,10 +8,15 @@
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="font24">24sp</dimen>
     <dimen name="default_big_margin">72dp</dimen>
+    <dimen name="margin_collection">48dp</dimen>
     <dimen name="marginBetweenWelcomeBackAndEntering">20dp</dimen>
     <dimen name="margin_login">24dp</dimen>
+    <dimen name="margin_default">24dp</dimen>
     <dimen name="marginPassword">28dp</dimen>
     <dimen name="sign_in_button_height">48dp</dimen>
     <dimen name="login_margin_bottom">16dp</dimen>
     <dimen name="verification_code_text_size">12sp</dimen>
+    <dimen name="margin_min">8dp</dimen>
+    <dimen name="star_padding">4dp</dimen>
+    <dimen name="font16">16sp</dimen>
 </resources>

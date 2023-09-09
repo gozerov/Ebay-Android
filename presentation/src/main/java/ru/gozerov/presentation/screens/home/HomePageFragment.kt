@@ -5,14 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentHomePageBinding
-import ru.gozerov.presentation.screens.login.sign_in.SignInFragment
 import ru.gozerov.presentation.utils.BaseFragment
-import ru.gozerov.presentation.utils.Screens
 import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
@@ -35,11 +31,6 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
-
-        binding.signInButton.setOnClickListener {
-            findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerGlobal)
-            findNavigationProvider().getRouter().navigateTo(Screens.signIn())
-        }
 
         return binding.root
     }

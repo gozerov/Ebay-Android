@@ -54,4 +54,10 @@
     <string name="you_can_re_send_code_in">You can re-send code in</string>
     <string name="verification_is_unavailable">Verification is unavailable</string>
     <string name="have_an_account">Have an Account? Sign In</string>
+    <string name="search">Search</string>
+    <string name="sale_card">sale card</string>
+    <string name="categories">Categories</string>
+    <string name="see_all">See All</string>
+    <string name="product_image">product image</string>
+    <string name="menu">menu</string>
 </resources>
