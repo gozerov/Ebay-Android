@@ -5,5 +5,7 @@ data class Good(
     val name: String,
     val description: String,
     val price: Int,
-    val images: List<String>
+    val images: List<String>?,
+    val reviews: List<Review>? = null,
+    val rating: Double? = null
 )

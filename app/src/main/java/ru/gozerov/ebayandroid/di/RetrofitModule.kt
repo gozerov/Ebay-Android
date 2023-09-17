@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.gozerov.data.remote.goods.retrofit.GoodsApi
 import ru.gozerov.data.remote.login.retrofit.LoginApi
+import ru.gozerov.data.remote.sales.retrofit.SalesApi
 import ru.gozerov.data.utils.dispatchers.Constants
 import javax.inject.Singleton
 
@@ -16,7 +17,6 @@ import javax.inject.Singleton
 class RetrofitModule {
 
     @Provides
-    @Singleton
     fun provideRetrofit(
         token: String
     ): Retrofit {
@@ -51,6 +51,14 @@ class RetrofitModule {
         retrofit: Retrofit
     ) : GoodsApi {
         return retrofit.create(GoodsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSalesApi(
+        retrofit: Retrofit
+    ) : SalesApi {
+        return retrofit.create(SalesApi::class.java)
     }
 
 }

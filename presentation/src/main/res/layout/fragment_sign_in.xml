@@ -11,9 +11,9 @@
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_login"
+        android:layout_marginTop="@dimen/margin_24"
         android:text="@string/welcome_back_to_ebay"
-        android:textSize="@dimen/font24"
+        android:textSize="@dimen/font_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/black"
@@ -25,14 +25,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitle"
-        android:layout_marginTop="@dimen/marginBetweenWelcomeBackAndEntering"
+        android:layout_marginTop="@dimen/margin_20"
         android:text="@string/please_enter_your_login"/>
 
     <TextView
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_login"
+        android:layout_marginTop="@dimen/margin_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtEnterLoginDetails"
         android:text="@string/email"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtEmail"
-        android:layout_marginTop="@dimen/marginBetweenWelcomeBackAndEntering">
+        android:layout_marginTop="@dimen/margin_20">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/TextInputEditText.Default"
@@ -61,7 +61,7 @@
         android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginPassword"
+        android:layout_marginTop="@dimen/margin_28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailInputLayout"
         android:text="@string/password"
@@ -78,7 +78,7 @@
         app:endIconDrawable="@drawable/ic_lock_24"
         app:endIconTint="@color/half_grey"
         app:endIconMode="password_toggle"
-        android:layout_marginTop="@dimen/marginBetweenWelcomeBackAndEntering">
+        android:layout_marginTop="@dimen/margin_20">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/TextInputEditText.Default"
@@ -92,8 +92,8 @@
     <Button
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_in_button_height"
-        android:layout_marginTop="@dimen/margin_login"
+        android:layout_height="@dimen/sign_in_button_height_48"
+        android:layout_marginTop="@dimen/margin_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordInputLayout"
@@ -110,7 +110,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginBottom="@dimen/login_margin_bottom"
+        android:layout_marginBottom="@dimen/margin_16"
         android:text="@string/forgot_password"
         android:textColor="@color/black"/>
 
@@ -124,6 +124,6 @@
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/login_margin_bottom"/>
+        android:layout_marginBottom="@dimen/margin_16"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

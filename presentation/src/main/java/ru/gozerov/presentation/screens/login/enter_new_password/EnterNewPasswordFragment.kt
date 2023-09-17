@@ -15,6 +15,7 @@ import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentEnterNewPasswordBinding
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.Screens
+import ru.gozerov.presentation.utils.ToolbarAction
 import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
@@ -27,7 +28,7 @@ class EnterNewPasswordFragment : BaseFragment<EnterNewPasswordViewModel<EnterNew
 
     override val viewModel: EnterNewPasswordViewModel<EnterNewPasswordIntent, EnterNewPasswordViewState> by viewModels { factory }
 
-    override var toolbarType: ToolbarHolder.ToolbarType = ToolbarHolder.ToolbarType.NONE
+    override var actions: Map<ToolbarHolder.ActionType, ToolbarAction?> = mapOf(ToolbarHolder.ActionType.NONE to null)
 
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)

@@ -2,8 +2,5 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="240dp"
     android:layout_height="120dp"
-    android:paddingHorizontal="60dp"
     android:contentDescription="@string/sale_card"
-    android:background="@drawable/background_sale_card">
-
-</ImageView>
+    android:background="@drawable/background_sale_card"/>

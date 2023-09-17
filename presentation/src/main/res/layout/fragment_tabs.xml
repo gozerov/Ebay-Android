@@ -16,7 +16,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         style="@style/BottomNavigationViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
+        android:layout_height="@dimen/toolbar_height_56"
         app:menu="@menu/bottom_nav_menu"/>
 
 </LinearLayout>

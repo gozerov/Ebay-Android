@@ -7,7 +7,7 @@ import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.gozerov.presentation.screens.home.HomePageFragment
+import ru.gozerov.presentation.screens.home.home_page.HomePageFragment
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordFragment
 import ru.gozerov.presentation.screens.login.reset.ResetPasswordFragment
 import ru.gozerov.presentation.screens.login.sign_in.SignInFragment
@@ -41,7 +41,7 @@ fun Fragment.findNavigationProvider() : AppNavigationProvider {
 }
 
 object Screens {
-    fun tabs() = FragmentScreen { TabsFragment() }
+    fun tabs(token: String? = null) = FragmentScreen { TabsFragment.newInstance(token) }
 
     fun signIn() = FragmentScreen { SignInFragment() }
 

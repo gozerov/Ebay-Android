@@ -1,5 +1,6 @@
 package ru.gozerov.data.remote.goods
 
+import ru.gozerov.data.models.CategoryData
 import ru.gozerov.data.models.GoodData
 import ru.gozerov.data.models.toAddRequestBody
 import ru.gozerov.data.remote.goods.retrofit.GoodsApi
@@ -15,6 +16,13 @@ class GoodsRemoteImpl @Inject constructor(
 
     override suspend fun getGoodsByPage(page: Int): List<GoodData> = goodsApi.getGoodsInParts(page).goods
 
+    override suspend fun getGoodsPack(): Map<String, List<GoodData>> = goodsApi.getGoodsPack().value
+
+    override suspend fun getGoodsByCategory(name: String): Pair<CategoryData, List<GoodData>> =
+        goodsApi.getGoodsByCategory(name).run { this.category to this.goods }
+
     override suspend fun addGood(goodData: GoodData): Boolean = goodsApi.addGood(goodData.toAddRequestBody()).isSuccessful
+
+    override suspend fun getCategories(): List<CategoryData> = goodsApi.getCategories().value
 
 }

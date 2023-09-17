@@ -68,4 +68,7 @@ dependencies {
 
     //Navigation
     implementation("com.github.terrakok:cicerone:7.1")
+
+    //jetpack paging 3
+    implementation("androidx.paging:paging-runtime-ktx:3.2.0")
 }

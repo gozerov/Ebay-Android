@@ -1,12 +1,10 @@
 package ru.gozerov.presentation.utils
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.annotation.StyleRes
 import androidx.fragment.app.Fragment
-import ru.gozerov.presentation.utils.ToolbarHolder.ToolbarType.NAV_UP_ONLY
+import ru.gozerov.presentation.utils.ToolbarHolder.ActionType.NAV_UP
 import javax.inject.Inject
 
 abstract class BaseFragment<VM: BaseViewModel<out Intent, out ViewState>>: Fragment() {
@@ -25,12 +23,12 @@ abstract class BaseFragment<VM: BaseViewModel<out Intent, out ViewState>>: Fragm
 
     protected abstract val viewModel: VM
 
-    protected open var toolbarType: ToolbarHolder.ToolbarType = NAV_UP_ONLY
-
+    protected open var actions: Map<ToolbarHolder.ActionType, ToolbarAction?> = mapOf(NAV_UP to null)
     protected open var toolbarLabel: String = ""
+    @StyleRes protected open var titleStyle: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (requireActivity() as ToolbarHolder).onToolbarChange(toolbarType, toolbarLabel)
+        (requireActivity() as ToolbarHolder).onToolbarChange(actions, toolbarLabel, titleStyle)
     }
 
     override fun onResume() {

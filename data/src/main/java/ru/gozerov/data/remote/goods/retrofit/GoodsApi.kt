@@ -12,8 +12,12 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import ru.gozerov.data.remote.goods.models.AddGoodRequestBody
 import ru.gozerov.data.remote.goods.models.AddGoodResponseBody
+import ru.gozerov.data.remote.goods.models.GetCategoriesResponseBody
 import ru.gozerov.data.remote.goods.models.GetGoodByIdResponseBody
+import ru.gozerov.data.remote.goods.models.GetGoodsByCategoryResponseBody
+import ru.gozerov.data.remote.goods.models.GetGoodsPackResponseBody
 import ru.gozerov.data.remote.goods.models.GetGoodsResponseBody
+import ru.gozerov.data.utils.dispatchers.Constants
 
 interface GoodsApi {
 
@@ -24,7 +28,16 @@ interface GoodsApi {
     suspend fun getGoodsInParts(@Query("page") page: Int) : GetGoodsResponseBody
 
     @GET("/goods/get")
+    suspend fun getGoodsByCategory(@Query("category") name: String) : GetGoodsByCategoryResponseBody
+
+    @POST("/goods/pack")
+    suspend fun getGoodsPack() : GetGoodsPackResponseBody
+
+    @GET("/goods/get")
     suspend fun getGoodById(@Query("id") id: Int) : GetGoodByIdResponseBody
+
+    @GET("/category")
+    suspend fun getCategories() : GetCategoriesResponseBody
 
     @POST("/goods/add")
     suspend fun addGood(@Body addGoodRequestBody: AddGoodRequestBody) : AddGoodResponseBody
@@ -32,26 +45,23 @@ interface GoodsApi {
 }
 
 fun main() {
+    val moshiConverterFactory = MoshiConverterFactory.create(Moshi.Builder().build())
     val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     val client = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .addInterceptor { chain ->
             val builder = chain.request().newBuilder()
-            builder.addHeader("Bearer-Authorization", "3c18a9ce-299d-4393-a648-03dce2f97ec3")
+            builder.addHeader("Bearer-Authorization", "23a43645-8c5f-454b-8973-aa23e78e3ba5")
             chain.proceed(builder.build())
         }
         .build()
-
-    val moshi = Moshi.Builder().build()
-    val moshiConverterFactory = MoshiConverterFactory.create(moshi)
-
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://0.0.0.0:8080")
+        .baseUrl(Constants.BASE_URL)
         .client(client)
         .addConverterFactory(moshiConverterFactory)
         .build()
     val goodsApi = retrofit.create(GoodsApi::class.java)
     runBlocking {
-        println(goodsApi.getGoodById(100010).good.toString())
+        println(goodsApi.getGoodsPack().value.toString())
     }
 }

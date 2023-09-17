@@ -97,8 +97,7 @@ class SignInFragment : BaseFragment<SignInViewModel<SignInIntent, SignInViewStat
                             showShortSnackbar(getString(R.string.unknown_error))
                         }
                         is SignInViewState.SuccessLogin -> {
-                            findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerTabs)
-                            findNavigationProvider().getRouter().newRootScreen(Screens.homePage())
+                            findNavigationProvider().getRouter().newRootScreen(Screens.tabs())
                         }
                     }
                 }

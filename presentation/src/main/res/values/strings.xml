@@ -60,4 +60,8 @@
     <string name="see_all">See All</string>
     <string name="product_image">product image</string>
     <string name="menu">menu</string>
+    <string name="ebay">Ebay</string>
+    <string name="price_is">%1$d $</string>
+    <string name="no_reviews">No Reviews</string>
+    <string name="reviews_are">%1$d Reviews</string>
 </resources>

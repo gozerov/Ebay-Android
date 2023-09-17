@@ -62,8 +62,13 @@ dependencies {
     //Navigation
     implementation("com.github.terrakok:cicerone:7.1")
 
+    //Lifecycle
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    //Coil
+    implementation("io.coil-kt:coil:2.4.0")
+
 }

@@ -17,7 +17,9 @@ abstract class UseCase<T, R> {
             onSuccess(result)
         } catch (e: Exception) {
             if (e is HttpException)
-                onHttpError?.invoke(e.response()?.errorBody()?.string())
+                onHttpError?.run {
+                    invoke(e.response()?.errorBody()?.string())
+                } ?: onError?.invoke(e)
             else
                 onError?.invoke(e)
         }

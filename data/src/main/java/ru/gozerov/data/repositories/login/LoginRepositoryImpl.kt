@@ -49,10 +49,10 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override suspend fun signIn(signInBody: SignInBody): Token = withContext(dispatcher.value) {
-        return@withContext loginRemote.signIn(signInBody.toSignInRequestBody()).toToken().apply {
-            if (this.value.isNotEmpty())
-                sharedPreferencesStorage.writeString(API_LOGIN_TOKEN, this.value)
-        }
+        val token = loginRemote.signIn(signInBody.toSignInRequestBody()).toToken()
+        if (token.value.isNotEmpty())
+            sharedPreferencesStorage.writeString(API_LOGIN_TOKEN, token.value)
+        return@withContext token
     }
 
     override suspend fun resetPassword(email: String) = withContext(dispatcher.value) {

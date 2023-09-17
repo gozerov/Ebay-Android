@@ -1,11 +1,15 @@
 package ru.gozerov.presentation.utils
 
+import androidx.annotation.StyleRes
+
+typealias ToolbarAction = () -> Unit
+
 interface ToolbarHolder {
 
-    fun onToolbarChange(type: ToolbarType, label: String)
+    fun onToolbarChange(actions: Map<ActionType, ToolbarAction?>, label: String, @StyleRes textAppearance: Int?)
 
-    enum class ToolbarType {
-        NONE, NAV_UP_ONLY
+    enum class ActionType {
+        NONE, NAV_UP, NOTIFICATION, CART
     }
 
 }

@@ -5,9 +5,9 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.gozerov.presentation.screens.home.HomePageIntent
-import ru.gozerov.presentation.screens.home.HomePageViewModel
-import ru.gozerov.presentation.screens.home.HomePageViewState
+import ru.gozerov.presentation.screens.home.home_page.HomePageIntent
+import ru.gozerov.presentation.screens.home.home_page.HomePageViewModel
+import ru.gozerov.presentation.screens.home.home_page.HomePageViewState
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordIntent
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordViewModel
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordViewState

@@ -42,4 +42,10 @@
         <item name="android:textCursorDrawable">@drawable/edit_text_cursor_drawable</item>
     </style>
 
+    <style name="BlueTitleTextAppearance" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/blue_ocean</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_18</item>
+    </style>
+
 </resources>
