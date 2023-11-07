@@ -20,4 +20,6 @@ interface GoodsRemote {
 
     suspend fun getCategories() : List<CategoryData>
 
+    suspend fun searchProductsByName(name: String) : List<GoodData>
+
 }

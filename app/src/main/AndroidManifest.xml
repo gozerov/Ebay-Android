@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EbayMainTheme"
-        tools:targetApi="31"
+        tools:targetApi="34"
         android:name=".app.EbayApp"
         android:usesCleartextTraffic="true">
         <activity

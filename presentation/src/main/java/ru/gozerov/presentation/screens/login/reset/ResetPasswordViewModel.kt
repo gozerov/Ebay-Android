@@ -1,6 +1,7 @@
 package ru.gozerov.presentation.screens.login.reset
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.usecases.ResetPasswordByEmail
 import ru.gozerov.presentation.screens.login.verification.VerificationCodeViewState

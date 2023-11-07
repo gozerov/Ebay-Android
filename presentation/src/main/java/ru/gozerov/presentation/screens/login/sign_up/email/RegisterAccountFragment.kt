@@ -16,17 +16,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentRegisterAccountBinding
 import ru.gozerov.presentation.screens.login.verification.VerificationCodeFragment.Companion.NAV_DESTINATION.SET_ACCOUNT_DATA
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.Screens
-import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
 import ru.gozerov.presentation.utils.hideKeyboard
 import ru.gozerov.presentation.utils.showShortSnackbar
 
+@AndroidEntryPoint
 class RegisterAccountFragment : BaseFragment<RegisterAccountViewModel<RegisterAccountIntent, RegisterAccountViewState>>() {
 
     private lateinit var binding: FragmentRegisterAccountBinding
@@ -38,7 +39,7 @@ class RegisterAccountFragment : BaseFragment<RegisterAccountViewModel<RegisterAc
     }
 
     override fun onAttach(context: Context) {
-        context.appComponent.inject(this)
+        //context.appComponent.inject(this)
         super.onAttach(context)
     }
 

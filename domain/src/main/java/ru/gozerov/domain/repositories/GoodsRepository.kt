@@ -20,4 +20,6 @@ interface GoodsRepository : Repository {
 
     suspend fun getCategories() : List<Category>
 
+    suspend fun searchProductsByName(arg: String): List<Good>
+
 }

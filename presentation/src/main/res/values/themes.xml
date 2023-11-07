@@ -48,4 +48,10 @@
         <item name="android:textSize">@dimen/font_18</item>
     </style>
 
+    <style name="BlackTitleTextAppearance" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/font_18</item>
+    </style>
+
 </resources>

@@ -25,4 +25,6 @@ class GoodsRemoteImpl @Inject constructor(
 
     override suspend fun getCategories(): List<CategoryData> = goodsApi.getCategories().value
 
+    override suspend fun searchProductsByName(name: String): List<GoodData> = goodsApi.searchProductsByName(name).goods
+
 }

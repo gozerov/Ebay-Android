@@ -64,4 +64,10 @@
     <string name="price_is">%1$d $</string>
     <string name="no_reviews">No Reviews</string>
     <string name="reviews_are">%1$d Reviews</string>
+    <string name="product_action">Product Action</string>
+    <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="share_product">Share Product</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="search_product_email">Search Product Email</string>
+    <string name="close">Close</string>
 </resources>

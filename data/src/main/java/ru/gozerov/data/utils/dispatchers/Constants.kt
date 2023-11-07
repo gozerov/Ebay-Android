@@ -6,7 +6,7 @@ object Constants {
 
     const val API_VERIFICATION_TOKEN = "VERIFICATION_TOKEN"
 
-    const val BASE_URL = "http://10.0.2.2:8080"
+    const val BASE_URL = "http://185.250.44.239:8090"
 
     const val SHARED_PREFERENCES_NAME = "EbaySharedPreferences"
 

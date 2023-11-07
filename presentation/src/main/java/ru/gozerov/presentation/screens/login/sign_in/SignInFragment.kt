@@ -10,16 +10,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentSignInBinding
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.Screens
-import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
 import ru.gozerov.presentation.utils.hideKeyboard
 import ru.gozerov.presentation.utils.showShortSnackbar
 
+@AndroidEntryPoint
 class SignInFragment : BaseFragment<SignInViewModel<SignInIntent, SignInViewState>>() {
 
     private lateinit var binding: FragmentSignInBinding
@@ -29,7 +30,7 @@ class SignInFragment : BaseFragment<SignInViewModel<SignInIntent, SignInViewStat
         findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerGlobal)
     }
     override fun onAttach(context: Context) {
-        context.appComponent.inject(this)
+        //context.appComponent.inject(this)
         super.onAttach(context)
     }
 

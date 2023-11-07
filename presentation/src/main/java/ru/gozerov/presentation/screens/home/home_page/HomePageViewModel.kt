@@ -1,6 +1,7 @@
 package ru.gozerov.presentation.screens.home.home_page
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.usecases.GetCategories
 import ru.gozerov.domain.usecases.GetGoodsInParts

@@ -1,5 +1,6 @@
 package ru.gozerov.domain.usecases
 
+import android.util.Log
 import retrofit2.HttpException
 
 abstract class UseCase<T, R> {
@@ -16,6 +17,7 @@ abstract class UseCase<T, R> {
             val result = loadData(arg)
             onSuccess(result)
         } catch (e: Exception) {
+                    Log.e("AAA", e.message.toString())
             if (e is HttpException)
                 onHttpError?.run {
                     invoke(e.response()?.errorBody()?.string())

@@ -46,4 +46,8 @@ class GoodsRepositoryImpl @Inject constructor(
         return@withContext goodsRemote.getCategories().map { it.toCategory() }
     }
 
+    override suspend fun searchProductsByName(arg: String): List<Good> = withContext(dispatcher.value) {
+        return@withContext goodsRemote.searchProductsByName(arg).map { it.toGood() }
+    }
+
 }

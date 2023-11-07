@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentResetPasswordBinding
@@ -17,11 +18,11 @@ import ru.gozerov.presentation.screens.login.verification.VerificationCodeFragme
 import ru.gozerov.presentation.screens.login.verification.VerificationCodeFragment.Companion.NAV_DESTINATION.NEW_PASSWORD
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.Screens
-import ru.gozerov.presentation.utils.appComponent
 import ru.gozerov.presentation.utils.findNavigationProvider
 import ru.gozerov.presentation.utils.hideKeyboard
 import ru.gozerov.presentation.utils.showShortSnackbar
 
+@AndroidEntryPoint
 class ResetPasswordFragment : BaseFragment<ResetPasswordViewModel<ResetPasswordIntent, ResetPasswordViewState>>() {
 
     private lateinit var binding: FragmentResetPasswordBinding
@@ -32,7 +33,7 @@ class ResetPasswordFragment : BaseFragment<ResetPasswordViewModel<ResetPasswordI
     }
 
     override fun onAttach(context: Context) {
-        context.appComponent.inject(this)
+        //context.appComponent.inject(this)
         super.onAttach(context)
     }
 

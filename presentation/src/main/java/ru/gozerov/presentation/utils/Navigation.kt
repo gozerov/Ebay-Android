@@ -1,13 +1,18 @@
 package ru.gozerov.presentation.utils
 
 import android.content.Context
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import ru.gozerov.presentation.screens.home.ComposableFragment
 import ru.gozerov.presentation.screens.home.home_page.HomePageFragment
+import ru.gozerov.presentation.screens.home.search.SearchProductFragment
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordFragment
 import ru.gozerov.presentation.screens.login.reset.ResetPasswordFragment
 import ru.gozerov.presentation.screens.login.sign_in.SignInFragment
@@ -31,13 +36,24 @@ interface AppNavigationProvider {
 
     fun getRouter() : Router = cicerone.router
 
+    @Composable
+    fun Navigation()
+
+
+
 }
+
 fun Context.findNavigationProvider() : AppNavigationProvider {
     return this.applicationContext as AppNavigationProvider
 }
 
 fun Fragment.findNavigationProvider() : AppNavigationProvider {
     return this.requireContext().findNavigationProvider()
+}
+
+@Composable
+fun Fragment.FindComposableNavigation() {
+    (this.requireContext().applicationContext as AppNavigationProvider).Navigation()
 }
 
 object Screens {
@@ -53,8 +69,13 @@ object Screens {
 
     fun enterNewPassword() = FragmentScreen { EnterNewPasswordFragment() }
 
-    fun homePage() = FragmentScreen { HomePageFragment() }
     fun registerAccount() = FragmentScreen { RegisterAccountFragment() }
+
     fun setAccountData() = FragmentScreen { SetAccountDataFragment() }
+
+    fun homePage() = FragmentScreen { HomePageFragment() }
+    fun searchProduct() = FragmentScreen { SearchProductFragment() }
+
+    fun composableNavigation() = FragmentScreen { ComposableFragment() }
 
 }

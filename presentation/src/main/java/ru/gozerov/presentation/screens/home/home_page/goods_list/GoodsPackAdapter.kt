@@ -13,7 +13,9 @@ import ru.gozerov.presentation.utils.HorizontalMarginItemDecoration
 
 class GoodsPackAdapter(
     private val onGoodClickedListener: (Good) -> Unit,
-    private val onSeeAllClickedListener: (String) -> Unit
+    private val onSeeAllClickedListener: (String) -> Unit,
+    private val onMenuClicked: () -> Unit,
+
 ) : RecyclerView.Adapter<GoodsPackAdapter.ViewHolder>(), View.OnClickListener {
 
     inner class ViewHolder(val binding: ItemProductsCollectionBinding) : RecyclerView.ViewHolder(binding.root)
@@ -30,6 +32,8 @@ class GoodsPackAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemProductsCollectionBinding.inflate(inflater, parent, false)
         binding.txtSeeAllCollection.setOnClickListener(this)
+        binding.productsRecyclerView.layoutManager = LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.productsRecyclerView.addItemDecoration(HorizontalMarginItemDecoration())
         return ViewHolder(binding)
     }
 
@@ -37,15 +41,13 @@ class GoodsPackAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        val adapter = GoodsListAdapter(onGoodClickedListener)
+        val adapter = GoodsListAdapter(onGoodClickedListener, onMenuClicked)
         with(holder.binding) {
             txtSeeAllCollection.tag = item.first
             root.tag = item
             adapter.data = item.second
             txtCollectionName.text = item.first
             productsRecyclerView.adapter = adapter
-            productsRecyclerView.layoutManager = LinearLayoutManager(root.context, LinearLayoutManager.HORIZONTAL, false)
-            productsRecyclerView.addItemDecoration(HorizontalMarginItemDecoration())
         }
     }
 

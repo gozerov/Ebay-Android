@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import dagger.hilt.android.AndroidEntryPoint
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.ActivityMainBinding
 import ru.gozerov.presentation.utils.Screens
@@ -13,6 +14,7 @@ import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.ToolbarHolder.ActionType
 import ru.gozerov.presentation.utils.findNavigationProvider
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ToolbarHolder {
 
     private lateinit var binding: ActivityMainBinding

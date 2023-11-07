@@ -1,6 +1,7 @@
 package ru.gozerov.presentation.screens.login.verification
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.usecases.PerformSignUp

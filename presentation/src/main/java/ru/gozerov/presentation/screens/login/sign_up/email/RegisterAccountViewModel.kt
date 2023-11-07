@@ -1,6 +1,7 @@
 package ru.gozerov.presentation.screens.login.sign_up.email
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.usecases.PerformSignUp
 import ru.gozerov.presentation.utils.BaseViewModel

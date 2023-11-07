@@ -3,6 +3,8 @@ package ru.gozerov.ebayandroid.di
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,6 +15,7 @@ import ru.gozerov.data.remote.sales.retrofit.SalesApi
 import ru.gozerov.data.utils.dispatchers.Constants
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class RetrofitModule {
 

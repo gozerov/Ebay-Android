@@ -1,6 +1,7 @@
 package ru.gozerov.presentation.screens.login.sign_in
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.models.SignInBody
 import ru.gozerov.domain.usecases.PerformSignIn

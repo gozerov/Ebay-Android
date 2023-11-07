@@ -4,10 +4,15 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoMap
 import ru.gozerov.presentation.screens.home.home_page.HomePageIntent
 import ru.gozerov.presentation.screens.home.home_page.HomePageViewModel
 import ru.gozerov.presentation.screens.home.home_page.HomePageViewState
+import ru.gozerov.presentation.screens.home.search.SearchProductIntent
+import ru.gozerov.presentation.screens.home.search.SearchProductViewModel
+import ru.gozerov.presentation.screens.home.search.SearchProductViewState
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordIntent
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordViewModel
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordViewState
@@ -28,6 +33,7 @@ import ru.gozerov.presentation.screens.login.verification.VerificationCodeViewMo
 import ru.gozerov.presentation.screens.login.verification.VerificationCodeViewState
 import kotlin.reflect.KClass
 
+@InstallIn(SingletonComponent::class)
 @Module
 interface ViewModelBindModule {
 
@@ -58,6 +64,10 @@ interface ViewModelBindModule {
     @Binds
     @[IntoMap ViewModelKey(HomePageViewModel::class)]
     fun provideHomePageViewModel(homePageViewModel: HomePageViewModel<HomePageIntent, HomePageViewState>) : ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(SearchProductViewModel::class)]
+    fun provideSearchProductViewModel(setProductViewModel: SearchProductViewModel<SearchProductIntent, SearchProductViewState>) : ViewModel
 
 }
 

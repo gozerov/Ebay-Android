@@ -42,6 +42,9 @@ interface GoodsApi {
     @POST("/goods/add")
     suspend fun addGood(@Body addGoodRequestBody: AddGoodRequestBody) : AddGoodResponseBody
 
+    @GET("/goods/get")
+    suspend fun searchProductsByName(@Query("name") name: String) : GetGoodsResponseBody
+
 }
 
 fun main() {

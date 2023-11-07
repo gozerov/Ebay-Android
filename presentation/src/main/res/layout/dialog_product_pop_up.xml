@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/margin_20"
+    android:background="@drawable/background_product_card">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/margin_24"
+        android:layout_marginVertical="@dimen/margin_24">
+
+        <TextView
+            android:id="@+id/txtProductAction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/product_action"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_16"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/closeDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_close_24"
+            android:contentDescription="@string/close"
+            android:layout_gravity="end"/>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_light"/>
+
+    <TextView
+        android:id="@+id/txtAddToWishlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_to_wishlist"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:layout_marginHorizontal="@dimen/margin_24"
+        android:layout_marginVertical="@dimen/margin_20" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_light"
+        android:layout_marginHorizontal="@dimen/margin_16"/>
+
+    <TextView
+        android:id="@+id/txtShareProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_product"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:layout_marginHorizontal="@dimen/margin_24"
+        android:layout_marginVertical="@dimen/margin_20" />
+    
+    <Button
+        android:id="@+id/addToCartButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_24"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:textAllCaps="false"
+        android:text="@string/add_to_cart"/>
+
+</LinearLayout>
