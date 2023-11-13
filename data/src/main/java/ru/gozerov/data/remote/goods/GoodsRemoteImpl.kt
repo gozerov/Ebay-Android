@@ -18,6 +18,8 @@ class GoodsRemoteImpl @Inject constructor(
 
     override suspend fun getGoodsPack(): Map<String, List<GoodData>> = goodsApi.getGoodsPack().value
 
+    override suspend fun getFeaturedGoods(): List<GoodData> = goodsApi.getGoodsInParts(0).goods
+
     override suspend fun getGoodsByCategory(name: String): Pair<CategoryData, List<GoodData>> =
         goodsApi.getGoodsByCategory(name).run { this.category to this.goods }
 

@@ -60,7 +60,7 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
 
     private val goodsPackAdapter = GoodsPackAdapter(
         onGoodClickedListener = {
-            log(it.toString())
+            findNavigationProvider().getRouter().navigateTo(Screens.productDetails(it.vendorCode))
         },
         onSeeAllClickedListener = {
             log(it)

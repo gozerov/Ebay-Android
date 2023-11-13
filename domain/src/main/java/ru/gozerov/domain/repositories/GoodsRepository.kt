@@ -14,6 +14,8 @@ interface GoodsRepository : Repository {
 
     suspend fun getGoodsPack() : Map<String, List<Good>>
 
+    suspend fun getFeaturedGoods() : List<Good>
+
     suspend fun getGoodsByCategory(category: String) : Pair<Category, List<Good>>
 
     suspend fun addGood(good: Good) : Boolean

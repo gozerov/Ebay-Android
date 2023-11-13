@@ -14,6 +14,8 @@ interface GoodsRemote {
 
     suspend fun getGoodsPack() : Map<String, List<GoodData>>
 
+    suspend fun getFeaturedGoods() : List<GoodData>
+
     suspend fun getGoodsByCategory(name: String) : Pair<CategoryData, List<GoodData>>
 
     suspend fun addGood(goodData: GoodData) : Boolean

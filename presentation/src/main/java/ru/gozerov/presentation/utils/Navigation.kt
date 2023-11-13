@@ -12,6 +12,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import ru.gozerov.presentation.screens.home.ComposableFragment
 import ru.gozerov.presentation.screens.home.home_page.HomePageFragment
+import ru.gozerov.presentation.screens.home.product_details.ProductDetailsFragment
 import ru.gozerov.presentation.screens.home.search.SearchProductFragment
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordFragment
 import ru.gozerov.presentation.screens.login.reset.ResetPasswordFragment
@@ -38,8 +39,6 @@ interface AppNavigationProvider {
 
     @Composable
     fun Navigation()
-
-
 
 }
 
@@ -77,5 +76,7 @@ object Screens {
     fun searchProduct() = FragmentScreen { SearchProductFragment() }
 
     fun composableNavigation() = FragmentScreen { ComposableFragment() }
+
+    fun productDetails(id: Int) = FragmentScreen { ProductDetailsFragment.newInstance(id) }
 
 }

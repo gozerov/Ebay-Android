@@ -34,6 +34,10 @@ class GoodsRepositoryImpl @Inject constructor(
         return@withContext goodsRemote.getGoodsPack().mapValues { e -> e.value.map { it.toGood() } }
     }
 
+    override suspend fun getFeaturedGoods(): List<Good> = withContext(dispatcher.value) {
+       return@withContext goodsRemote.getFeaturedGoods().map { it.toGood() }
+    }
+
     override suspend fun getGoodsByCategory(category: String): Pair<Category, List<Good>> = withContext(dispatcher.value) {
         return@withContext goodsRemote.getGoodsByCategory(category).run { first.toCategory() to second.map { it.toGood() } }
     }
