@@ -1,6 +1,8 @@
 package ru.gozerov.presentation.screens.home.product_details
 
-sealed class ProductDetailsIntent {
+import ru.gozerov.presentation.utils.Intent
+
+sealed class ProductDetailsIntent : Intent {
 
     data class LoadProduct(
         val id: Int

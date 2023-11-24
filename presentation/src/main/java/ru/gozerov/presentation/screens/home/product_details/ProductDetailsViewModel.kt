@@ -1,27 +1,18 @@
 package ru.gozerov.presentation.screens.home.product_details
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.usecases.GetFeaturedGoods
 import ru.gozerov.domain.usecases.GetGoodById
+import ru.gozerov.presentation.utils.BaseViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class ProductDetailsViewModel @Inject constructor(
+class ProductDetailsViewModel<T, U> @Inject constructor(
     private val getGoodById: GetGoodById,
     private val getFeaturedGoods: GetFeaturedGoods
-) : ViewModel() {
+) : BaseViewModel<ProductDetailsIntent, ProductDetailsViewState>() {
 
-    private val _viewState = MutableSharedFlow<ProductDetailsViewState>(1, 0, BufferOverflow.DROP_OLDEST)
-    val viewState: SharedFlow<ProductDetailsViewState> = _viewState.asSharedFlow()
-
-    fun handleIntent(intent: ProductDetailsIntent) {
+    override fun handleIntent(intent: ProductDetailsIntent) {
         viewModelScope.launch {
             when(intent) {
                 is ProductDetailsIntent.LoadProduct -> {
@@ -30,6 +21,9 @@ class ProductDetailsViewModel @Inject constructor(
                             arg = intent.id,
                             onSuccess = {
                                 _viewState.emit(ProductDetailsViewState.SuccessLoading(it))
+                            },
+                            onError = {
+                                _viewState.emit(ProductDetailsViewState.Error)
                             }
                         )
                     }
@@ -38,6 +32,9 @@ class ProductDetailsViewModel @Inject constructor(
                             arg = Unit,
                             onSuccess = {
                                 _viewState.emit(ProductDetailsViewState.FeaturedProductsLoaded(it))
+                            },
+                            onError = {
+                                _viewState.emit(ProductDetailsViewState.Error)
                             }
                         )
                     }

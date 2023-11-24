@@ -64,6 +64,7 @@ import ru.gozerov.presentation.R
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.DefaultText
 import ru.gozerov.presentation.utils.Screens
+import ru.gozerov.presentation.utils.SearchProduct
 import ru.gozerov.presentation.utils.ToolbarAction
 import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.findNavigationProvider
@@ -110,58 +111,25 @@ class SearchProductFragment : BaseFragment<SearchProductViewModel<SearchProductI
             }
         }
         val textFieldValue = remember { mutableStateOf(TextFieldValue(text = "", TextRange(0))) }
-        val greyColor = colorResource(id = R.color.grey_light)
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            TextField(
+            SearchProduct(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
                     .padding(24.dp)
                     .clip(RoundedCornerShape(4.dp)),
-                value = textFieldValue.value,
-                onValueChange = {
-                    textFieldValue.value = it
-                    if (it.text.isNotBlank()) {
-                        viewModel.handleIntent(SearchProductIntent.SearchByName(it.text))
-                    } else
-                        viewModel.handleIntent(SearchProductIntent.EmptySearch)
+                textFieldValue = textFieldValue,
+                onSearch = {
+                    viewModel.handleIntent(SearchProductIntent.SearchByName(textFieldValue.value.text))
                 },
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = greyColor,
-                    unfocusedContainerColor = greyColor,
-                    cursorColor = Color.Black,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        viewModel.handleIntent(SearchProductIntent.SearchByName(textFieldValue.value.text))
-                    }
-                ),
-                singleLine = true,
-                trailingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_search_24),
-                        contentDescription = null,
-                        tint = colorResource(id = R.color.half_grey),
-                        modifier = Modifier.clickable {
-                            viewModel.handleIntent(SearchProductIntent.SearchByName(textFieldValue.value.text))
-                        }
-                    )
-                },
-
-                placeholder = {
-                    Text(
-                        text = "Search Product",
-                        letterSpacing = TextUnit(0.05f, TextUnitType.Sp),
-                        color = colorResource(id = R.color.half_grey)
-                    )
+                onEmptyField = {
+                    viewModel.handleIntent(SearchProductIntent.EmptySearch)
                 }
             )
+
             when (viewState) {
                 is SearchProductViewState.Empty -> {
                     RecentSearchList(textFieldValue = textFieldValue)
@@ -213,7 +181,9 @@ class SearchProductFragment : BaseFragment<SearchProductViewModel<SearchProductI
                                 .width(20.dp)
                                 .height(20.dp)
                                 .clickable {
-                                    findNavigationProvider().getRouter().navigateTo(Screens.composableNavigation())
+                                    findNavigationProvider()
+                                        .getRouter()
+                                        .navigateTo(Screens.composableNavigation())
                                 },
                             imageVector = Icons.Default.History,
                             contentDescription = null,
@@ -264,7 +234,8 @@ class SearchProductFragment : BaseFragment<SearchProductViewModel<SearchProductI
                                 .padding(vertical = 8.dp)
                                 .fillMaxWidth()
                                 .clickable {
-                                    textFieldValue.value = TextFieldValue(it.name, TextRange(it.name.length))
+                                    textFieldValue.value =
+                                        TextFieldValue(it.name, TextRange(it.name.length))
                                     viewModel.handleIntent(SearchProductIntent.SearchByName(it.name))
                                 },
                             verticalAlignment = Alignment.CenterVertically

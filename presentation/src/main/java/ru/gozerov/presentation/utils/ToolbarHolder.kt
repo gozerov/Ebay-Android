@@ -9,7 +9,7 @@ interface ToolbarHolder {
     fun onToolbarChange(actions: Map<ActionType, ToolbarAction?>, label: String, @StyleRes textAppearance: Int?)
 
     enum class ActionType {
-        NONE, NAV_UP, NOTIFICATION, CART
+        NONE, NAV_UP, NOTIFICATION, CART, SHARE
     }
 
 }

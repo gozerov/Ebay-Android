@@ -51,7 +51,8 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
     override var titleStyle: Int? = R.style.BlueTitleTextAppearance
 
     private val categoryAdapter = CategoryAdapter {
-        log(it.toString())
+        findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerGlobal)
+        findNavigationProvider().getRouter().navigateTo(Screens.selectedCategory(it.name))
     }
 
     private val salesAdapter = SalesListAdapter {
@@ -139,7 +140,7 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
     }
 
     override fun setNavigator() {
-        findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerTabs)
+        findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerGlobal)
     }
 
     companion object {

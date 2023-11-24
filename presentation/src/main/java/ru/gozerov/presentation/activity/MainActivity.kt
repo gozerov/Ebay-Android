@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
                     binding.toolbarRightButton1.visibility = View.VISIBLE
                 }
                 ActionType.CART -> {
-                    binding.toolbarRightButton1.setOnClickListener {
+                    binding.toolbarRightButton2.setOnClickListener {
                         actions.getValue(actionType)?.invoke()
                     }
                     binding.toolbarRightButton2.setImageDrawable(
@@ -84,6 +84,18 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
                         )
                     )
                     binding.toolbarRightButton2.visibility = View.VISIBLE
+                }
+                ActionType.SHARE -> {
+                    binding.toolbarRightButton1.setOnClickListener {
+                        actions.getValue(actionType)?.invoke()
+                    }
+                    binding.toolbarRightButton1.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.baseline_share_24
+                        )
+                    )
+                    binding.toolbarRightButton1.visibility = View.VISIBLE
                 }
             }
         }

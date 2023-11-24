@@ -14,6 +14,7 @@ import ru.gozerov.presentation.screens.home.ComposableFragment
 import ru.gozerov.presentation.screens.home.home_page.HomePageFragment
 import ru.gozerov.presentation.screens.home.product_details.ProductDetailsFragment
 import ru.gozerov.presentation.screens.home.search.SearchProductFragment
+import ru.gozerov.presentation.screens.home.selected_category.SelectedCategoryFragment
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordFragment
 import ru.gozerov.presentation.screens.login.reset.ResetPasswordFragment
 import ru.gozerov.presentation.screens.login.sign_in.SignInFragment
@@ -78,5 +79,7 @@ object Screens {
     fun composableNavigation() = FragmentScreen { ComposableFragment() }
 
     fun productDetails(id: Int) = FragmentScreen { ProductDetailsFragment.newInstance(id) }
+
+    fun selectedCategory(category: String) = FragmentScreen { SelectedCategoryFragment.newInstance(category) }
 
 }

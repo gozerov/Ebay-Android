@@ -1,13 +1,19 @@
 package ru.gozerov.presentation.screens.home.product_details
 
+import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.annotation.StyleRes
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -57,21 +63,46 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.models.Good
 import ru.gozerov.domain.models.Review
 import ru.gozerov.presentation.R
+import ru.gozerov.presentation.databinding.DialogProductPopUpBinding
+import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.DefaultDivider
 import ru.gozerov.presentation.utils.DefaultText
 import ru.gozerov.presentation.utils.StarIconFull
 import ru.gozerov.presentation.utils.StarIconOutlined
+import ru.gozerov.presentation.utils.ToolbarAction
+import ru.gozerov.presentation.utils.ToolbarHolder
+import ru.gozerov.presentation.utils.findNavigationProvider
 import java.text.DecimalFormat
 
 
-class ProductDetailsFragment : Fragment() {
+@AndroidEntryPoint
+class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetailsIntent, ProductDetailsViewState>>() {
+
+    override val viewModel: ProductDetailsViewModel<ProductDetailsIntent, ProductDetailsViewState> by viewModels { factory }
+
+    override var actions: Map<ToolbarHolder.ActionType, ToolbarAction?> = mapOf(
+        ToolbarHolder.ActionType.NAV_UP to {},
+        ToolbarHolder.ActionType.SHARE to null,
+        ToolbarHolder.ActionType.CART to null
+    )
+
+    override fun setNavigator() {
+        findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerTabs)
+    }
+    override fun onAttach(context: Context) {
+        toolbarLabel = "ProductDetails"
+        titleStyle = R.style.BlackTitleTextAppearance
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,7 +122,6 @@ class ProductDetailsFragment : Fragment() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun ProductDetailsScreen(productId: Int) {
-        val viewModel: ProductDetailsViewModel = hiltViewModel()
         val product: MutableState<Good?> = remember { mutableStateOf(null) }
         val featuredProducts: MutableState<List<Good>?> = remember { mutableStateOf(null) }
         LaunchedEffect(key1 = null) {
@@ -522,7 +552,28 @@ class ProductDetailsFragment : Fragment() {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_more_vert_24),
                         contentDescription = null,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier
+                            .size(18.dp)
+                            .clickable {
+                                val dialogBinding =
+                                    DialogProductPopUpBinding.inflate(LayoutInflater.from(context))
+                                val dialog = AlertDialog
+                                    .Builder(requireContext())
+                                    .setView(dialogBinding.root)
+                                    .setCancelable(true)
+                                    .create()
+                                val width =
+                                    requireContext().resources.getDimensionPixelOffset(R.dimen.dialog_width)
+                                dialogBinding.closeDialog.setOnClickListener {
+                                    dialog.cancel()
+                                }
+                                dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+                                dialog.show()
+                                dialog.window?.setLayout(
+                                    width,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                )
+                            }
                     )
                 }
 

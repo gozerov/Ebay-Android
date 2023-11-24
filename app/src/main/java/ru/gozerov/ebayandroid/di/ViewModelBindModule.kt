@@ -10,9 +10,15 @@ import dagger.multibindings.IntoMap
 import ru.gozerov.presentation.screens.home.home_page.HomePageIntent
 import ru.gozerov.presentation.screens.home.home_page.HomePageViewModel
 import ru.gozerov.presentation.screens.home.home_page.HomePageViewState
+import ru.gozerov.presentation.screens.home.product_details.ProductDetailsIntent
+import ru.gozerov.presentation.screens.home.product_details.ProductDetailsViewModel
+import ru.gozerov.presentation.screens.home.product_details.ProductDetailsViewState
 import ru.gozerov.presentation.screens.home.search.SearchProductIntent
 import ru.gozerov.presentation.screens.home.search.SearchProductViewModel
 import ru.gozerov.presentation.screens.home.search.SearchProductViewState
+import ru.gozerov.presentation.screens.home.selected_category.SelectedCategoryIntent
+import ru.gozerov.presentation.screens.home.selected_category.SelectedCategoryViewModel
+import ru.gozerov.presentation.screens.home.selected_category.SelectedCategoryViewState
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordIntent
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordViewModel
 import ru.gozerov.presentation.screens.login.enter_new_password.EnterNewPasswordViewState
@@ -68,6 +74,14 @@ interface ViewModelBindModule {
     @Binds
     @[IntoMap ViewModelKey(SearchProductViewModel::class)]
     fun provideSearchProductViewModel(setProductViewModel: SearchProductViewModel<SearchProductIntent, SearchProductViewState>) : ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(ProductDetailsViewModel::class)]
+    fun provideProductDetailsViewModel(productDetailsViewModel: ProductDetailsViewModel<ProductDetailsIntent, ProductDetailsViewState>) : ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(SelectedCategoryViewModel::class)]
+    fun provideSelectedCategoryViewModel(selectedCategoryViewModel: SelectedCategoryViewModel<SelectedCategoryIntent, SelectedCategoryViewState>) : ViewModel
 
 }
 

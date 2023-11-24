@@ -1,8 +1,9 @@
 package ru.gozerov.presentation.screens.home.product_details
 
 import ru.gozerov.domain.models.Good
+import ru.gozerov.presentation.utils.ViewState
 
-sealed class ProductDetailsViewState {
+sealed class ProductDetailsViewState : ViewState {
 
     object Empty : ProductDetailsViewState()
 
