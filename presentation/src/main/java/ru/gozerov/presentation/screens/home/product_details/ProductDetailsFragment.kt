@@ -1,19 +1,13 @@
 package ru.gozerov.presentation.screens.home.product_details
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.annotation.StyleRes
-import androidx.appcompat.app.AlertDialog
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,52 +30,44 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
-import androidx.compose.material.icons.filled.NoPhotography
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.gozerov.domain.models.Good
 import ru.gozerov.domain.models.Review
 import ru.gozerov.presentation.R
-import ru.gozerov.presentation.databinding.DialogProductPopUpBinding
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.DefaultDivider
 import ru.gozerov.presentation.utils.DefaultText
+import ru.gozerov.presentation.utils.NoPhoto
+import ru.gozerov.presentation.utils.OutlinedButton
+import ru.gozerov.presentation.utils.ProductCard
+import ru.gozerov.presentation.utils.ReviewCard
 import ru.gozerov.presentation.utils.StarIconFull
-import ru.gozerov.presentation.utils.StarIconOutlined
 import ru.gozerov.presentation.utils.ToolbarAction
 import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.findNavigationProvider
-import java.text.DecimalFormat
+import ru.gozerov.presentation.utils.log
 
 
 @AndroidEntryPoint
@@ -118,6 +104,12 @@ class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetai
             }
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerTabs)
+    }
+
 
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
@@ -243,15 +235,6 @@ class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetai
     }
 
     @Composable
-    fun NoPhoto(modifier: Modifier = Modifier) {
-        Icon(
-            modifier = modifier,
-            imageVector = Icons.Default.NoPhotography,
-            contentDescription = null
-        )
-    }
-
-    @Composable
     fun ReviewsSection(reviewsCount: Int, totalRating: Double) {
         if (reviewsCount > 0) {
             Row(
@@ -322,7 +305,13 @@ class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetai
                     ReviewCard(review)
                 }
             }
-            OutlinedButton()
+            OutlinedButton(
+                modifier = Modifier
+                    .padding(start = 24.dp, end = 24.dp, top = 12.dp, bottom = 24.dp)
+                    .fillMaxWidth(),
+                onClick = {},
+                text = "See All Reviews"
+            )
         }
     }
 
@@ -352,71 +341,6 @@ class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetai
     }
 
     @Composable
-    fun ReviewCard(review: Review) {
-        Column {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Spacer(modifier = Modifier.width(24.dp))
-                Image(
-                    modifier = Modifier.size(48.dp),
-                    painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    DefaultText(text = review.userEmail)
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Row {
-                        repeat(5) {
-                            if (it < review.rating.toInt())
-                                StarIconFull(modifier = Modifier
-                                    .padding(start = if (it == 0) 2.dp else 0.dp, end = 2.dp))
-                            else
-                                StarIconOutlined(modifier = Modifier
-                                    .padding(start = if (it == 0) 2.dp else 0.dp, end = 2.dp))
-                        }
-                    }
-                }
-                review.addedAgo?.let {
-                    DefaultText(
-                        modifier = Modifier
-                            .align(Alignment.Top)
-                            .padding(top = 4.dp, end = 24.dp),
-                        text = it
-                    )
-                }
-
-            }
-            DefaultText(
-                modifier = Modifier.padding(
-                    start = 84.dp, end = 24.dp, top = 8.dp, bottom = 12.dp
-                ), text = "Some text"
-            )
-        }
-
-    }
-
-    @Composable
-    fun OutlinedButton() {
-        Button(modifier = Modifier
-            .padding(
-                start = 24.dp, end = 24.dp, top = 12.dp, bottom = 24.dp
-            )
-            .fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-            border = BorderStroke(1.dp, Color.Black),
-            onClick = { }) {
-            DefaultText(
-                modifier = Modifier.padding(vertical = 4.dp), text = "See All Reviews"
-            )
-        }
-    }
-
-    @Composable
     fun FeaturedProductsSection(products: List<Good>) {
         Column(
             modifier = Modifier
@@ -433,7 +357,7 @@ class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetai
                 ), state = rememberLazyListState()
             ) {
                 items(products.size) {
-                    ProductCard(products[it])
+                    ProductCard(requireContext(), products[it])
                 }
             }
             AddToCartButton()
@@ -485,101 +409,6 @@ class ProductDetailsFragment : BaseFragment<ProductDetailsViewModel<ProductDetai
         }
     }
 
-    @Composable
-    fun ProductCard(product: Good) {
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .width(192.dp)
-                .height(308.dp)
-
-        ) {
-            if (product.images.isNullOrEmpty())
-                NoPhoto(modifier = Modifier
-                    .height(212.dp)
-                    .padding(horizontal = 36.dp)
-                    .fillMaxWidth()
-                )
-            else
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 16.dp)
-                        .height(180.dp),
-                    model = product.images!!.first(),
-                    contentDescription = null
-                )
-            DefaultText(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .fillMaxWidth(),
-                text = product.name,
-                fontWeight = FontWeight.Bold,
-                maxLines = 2
-            )
-            DefaultText(
-                modifier = Modifier.padding(
-                    top = 8.dp, start = 12.dp
-                ),
-                text = "${product.price} $",
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                color = colorResource(id = R.color.red_price)
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
-                    horizontal = 12.dp, vertical = 8.dp
-                )
-            ) {
-                product.rating?.let {
-                    StarIconFull()
-                    Spacer(modifier = Modifier.width(4.dp))
-                    DefaultText(text = it.toString())
-                    Spacer(modifier = Modifier.width(20.dp))
-                    DefaultText(
-                        text = "${product.reviews?.size ?: 0} Reviews",
-                        fontSize = 12.sp
-                    )
-                } ?: DefaultText(
-                    text = "No Reviews",
-                    fontSize = 12.sp
-                )
-                Box(
-                    modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterEnd
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_more_vert_24),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(18.dp)
-                            .clickable {
-                                val dialogBinding =
-                                    DialogProductPopUpBinding.inflate(LayoutInflater.from(context))
-                                val dialog = AlertDialog
-                                    .Builder(requireContext())
-                                    .setView(dialogBinding.root)
-                                    .setCancelable(true)
-                                    .create()
-                                val width =
-                                    requireContext().resources.getDimensionPixelOffset(R.dimen.dialog_width)
-                                dialogBinding.closeDialog.setOnClickListener {
-                                    dialog.cancel()
-                                }
-                                dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-                                dialog.show()
-                                dialog.window?.setLayout(
-                                    width,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                                )
-                            }
-                    )
-                }
-
-            }
-        }
-    }
 
     companion object {
 

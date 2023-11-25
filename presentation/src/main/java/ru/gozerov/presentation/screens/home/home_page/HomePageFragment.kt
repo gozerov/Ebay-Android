@@ -61,6 +61,7 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
 
     private val goodsPackAdapter = GoodsPackAdapter(
         onGoodClickedListener = {
+            findNavigationProvider().setNavigator(requireActivity(), R.id.fragmentContainerGlobal)
             findNavigationProvider().getRouter().navigateTo(Screens.productDetails(it.vendorCode))
         },
         onSeeAllClickedListener = {
@@ -102,6 +103,7 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect { state ->
+                    state.scrollPosition?.let { binding.root.scrollY = it }
                     when(state) {
                         is HomePageViewState.Empty -> {}
                         is HomePageViewState.SuccessCategoriesLoading -> {
@@ -137,6 +139,16 @@ class HomePageFragment : BaseFragment<HomePageViewModel<HomePageIntent, HomePage
 
         binding.productsCollectionRecyclerView.adapter = goodsPackAdapter
         binding.productsCollectionRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.scrollPosition?.let { binding.rootScrollView.scrollY = it }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.handleIntent(HomePageIntent.SaveScrollPosition(binding.rootScrollView.scrollY))
     }
 
     override fun setNavigator() {

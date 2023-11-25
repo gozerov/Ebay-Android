@@ -6,22 +6,31 @@ import ru.gozerov.domain.models.Good
 import ru.gozerov.domain.models.Sale
 import ru.gozerov.presentation.utils.ViewState
 
-sealed class HomePageViewState : ViewState {
+sealed class HomePageViewState(
+    val scrollPosition: Int? = null
+) : ViewState {
 
-    object Empty : HomePageViewState()
+    data class Empty(
+        val scroll: Int? = null,
+    ) : HomePageViewState(scroll)
 
     data class SuccessGoodsLoading(
+        val scroll: Int? = null,
         val value: Map<String, List<Good>>
-    ) : HomePageViewState()
+    ) : HomePageViewState(scroll)
 
     data class SuccessCategoriesLoading(
+        val scroll: Int? = null,
         val value: List<Category>
-    ) : HomePageViewState()
+    ) : HomePageViewState(scroll)
 
     data class SuccessSalesLoading(
+        val scroll: Int? = null,
         val value: List<Sale>
-    ) : HomePageViewState()
+    ) : HomePageViewState(scroll)
 
-    object UnknownError : HomePageViewState()
+    data class UnknownError(
+        val scroll: Int? = null
+    ) : HomePageViewState(scroll)
 
 }

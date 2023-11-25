@@ -6,4 +6,8 @@ sealed class HomePageIntent : Intent {
 
     object StartScreen : HomePageIntent()
 
+    data class SaveScrollPosition(
+        val scrollPosition: Int
+    ) : HomePageIntent()
+
 }

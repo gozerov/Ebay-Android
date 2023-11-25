@@ -1,5 +1,6 @@
 package ru.gozerov.presentation.utils
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,6 +9,10 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.NoPhotography
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -108,109 +113,31 @@ fun StarIconOutlined(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ColumnScope.SearchProduct(
+fun OutlinedButton(
     modifier: Modifier = Modifier,
-    textFieldValue: MutableState<TextFieldValue>,
-    onSearch: ((String) -> Unit)? = null,
-    onEmptyField: (() -> Unit)? = null
+    onClick: () -> Unit,
+    text: String
 ) {
-    val greyColor = colorResource(id = R.color.grey_light)
-    TextField(
+    Button(
         modifier = modifier,
-        value = textFieldValue.value,
-        onValueChange = {
-            textFieldValue.value = it
-            if (it.text.isNotBlank()) {
-                onSearch?.invoke(it.text)
-            } else
-                onEmptyField?.invoke()
-        },
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = greyColor,
-            unfocusedContainerColor = greyColor,
-            cursorColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(
-            onSearch = {
-                onSearch?.invoke(textFieldValue.value.text)
-            }
-        ),
-        singleLine = true,
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = null,
-                tint = colorResource(id = R.color.half_grey),
-                modifier = Modifier.clickable {
-                    onSearch?.invoke(textFieldValue.value.text)
-                }
-            )
-        },
-
-        placeholder = {
-            Text(
-                text = "Search Product",
-                letterSpacing = TextUnit(0.05f, TextUnitType.Sp),
-                color = colorResource(id = R.color.half_grey)
-            )
-        }
-    )
-
+        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+        border = BorderStroke(1.dp, Color.Black),
+        onClick = onClick
+    ) {
+        DefaultText(
+            modifier = Modifier
+                .padding(vertical = 4.dp),
+            text = text
+        )
+    }
 }
 
 @Composable
-fun LazyItemScope.SearchProduct(
-    modifier: Modifier = Modifier,
-    textFieldValue: MutableState<TextFieldValue>,
-    onSearch: ((String) -> Unit)? = null,
-    onEmptyField: (() -> Unit)? = null
-) {
-    val greyColor = colorResource(id = R.color.grey_light)
-    TextField(
+fun NoPhoto(modifier: Modifier = Modifier) {
+    Icon(
         modifier = modifier,
-        value = textFieldValue.value,
-        onValueChange = {
-            textFieldValue.value = it
-            if (it.text.isNotBlank()) {
-                onSearch?.invoke(it.text)
-            } else
-                onEmptyField?.invoke()
-        },
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = greyColor,
-            unfocusedContainerColor = greyColor,
-            cursorColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(
-            onSearch = {
-                onSearch?.invoke(textFieldValue.value.text)
-            }
-        ),
-        singleLine = true,
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = null,
-                tint = colorResource(id = R.color.half_grey),
-                modifier = Modifier.clickable {
-                    onSearch?.invoke(textFieldValue.value.text)
-                }
-            )
-        },
-
-        placeholder = {
-            Text(
-                text = "Search Product",
-                letterSpacing = TextUnit(0.05f, TextUnitType.Sp),
-                color = colorResource(id = R.color.half_grey)
-            )
-        }
+        imageVector = Icons.Default.NoPhotography,
+        contentDescription = null
     )
-
 }

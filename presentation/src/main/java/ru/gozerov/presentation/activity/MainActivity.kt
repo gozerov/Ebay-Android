@@ -13,6 +13,7 @@ import ru.gozerov.presentation.utils.ToolbarAction
 import ru.gozerov.presentation.utils.ToolbarHolder
 import ru.gozerov.presentation.utils.ToolbarHolder.ActionType
 import ru.gozerov.presentation.utils.findNavigationProvider
+import ru.gozerov.presentation.utils.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ToolbarHolder {
@@ -31,6 +32,13 @@ class MainActivity : AppCompatActivity(), ToolbarHolder {
         }
         binding.navigateUpButton.setOnClickListener {
             findNavigationProvider().getRouter().exit()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFragmentManager.fragments.forEach {
+            log("parent: ${it.javaClass.simpleName}")
         }
     }
 
