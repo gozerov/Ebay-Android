@@ -38,6 +38,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.gozerov.domain.models.Good
 import ru.gozerov.presentation.R
+import ru.gozerov.presentation.screens.home.home_page.filter.FilterDialog
 import ru.gozerov.presentation.utils.BaseFragment
 import ru.gozerov.presentation.utils.DefaultText
 import ru.gozerov.presentation.utils.OutlinedButton
@@ -90,6 +91,7 @@ class SelectedCategoryFragment : BaseFragment<SelectedCategoryViewModel<Selected
     @Composable
     fun SelectedCategoryScreen(category: String) {
         val products: MutableState<List<Good>?> = remember { mutableStateOf(null) }
+        val showFilterDialog = remember { mutableStateOf(false) }
 
         LaunchedEffect(key1 = null) {
             viewModel.viewState.collect { state ->
@@ -104,6 +106,11 @@ class SelectedCategoryFragment : BaseFragment<SelectedCategoryViewModel<Selected
         }
         if (products.value?.isEmpty() == false) {
             val textFieldValue = remember { mutableStateOf(TextFieldValue(text = "", TextRange(0))) }
+            if (showFilterDialog.value) {
+                FilterDialog {
+                    showFilterDialog.value = false
+                }
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -119,7 +126,7 @@ class SelectedCategoryFragment : BaseFragment<SelectedCategoryViewModel<Selected
                     textFieldValue = textFieldValue
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                ProductList(products = products.value!!)
+                ProductList(products = products.value!!, showFilterDialog)
             }
         }
     }
@@ -135,7 +142,7 @@ class SelectedCategoryFragment : BaseFragment<SelectedCategoryViewModel<Selected
     }
 
     @Composable
-    fun ProductList(products: List<Good>) {
+    fun ProductList(products: List<Good>, showFilterDialog: MutableState<Boolean>) {
         Column(modifier = Modifier
             .fillMaxWidth()
             .background(color = colorResource(id = R.color.grey_light))
@@ -159,7 +166,9 @@ class SelectedCategoryFragment : BaseFragment<SelectedCategoryViewModel<Selected
                         start = 24.dp, end = 24.dp, top = 24.dp, bottom = 24.dp
                     )
                     .fillMaxWidth(),
-                onClick = { },
+                onClick = {
+                    showFilterDialog.value = true
+                },
                 text = "Filter & Sorting"
             )
        }
