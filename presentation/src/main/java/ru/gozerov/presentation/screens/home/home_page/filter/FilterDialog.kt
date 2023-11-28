@@ -1,10 +1,12 @@
 package ru.gozerov.presentation.screens.home.home_page.filter
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalOverscrollConfiguration
+import androidx.compose.foundation.OverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -22,8 +25,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,7 +37,9 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -49,7 +52,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -57,6 +59,9 @@ import kotlinx.coroutines.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.utils.DefaultDivider
 import ru.gozerov.presentation.utils.DefaultText
+import ru.gozerov.presentation.utils.FullButton
+import ru.gozerov.presentation.utils.OutlinedButton
+import ru.gozerov.presentation.utils.RoundedCornerCheckbox
 
 const val PAGE_FILTER = 0
 const val PAGE_SORTING = 1
@@ -75,7 +80,7 @@ fun FilterDialog(onDismissRequest: () -> Unit) {
             colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
             TitleSection(onDismissRequest)
-            TabsSection()
+            TabsSection(onDismissRequest)
         }
     }
 }
@@ -112,7 +117,7 @@ fun TitleSection(onDismissRequest: () -> Unit) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TabsSection() {
+fun TabsSection(onDismissRequest: () -> Unit) {
     val tabs = listOf("Filter", "Sorting")
     val pagerState = rememberPagerState { tabs.size }
     val coroutineScope = rememberCoroutineScope()
@@ -125,6 +130,7 @@ fun TabsSection() {
             modifier = Modifier.width(160.dp),
             selectedTabIndex = pagerState.currentPage,
             divider = {  },
+            contentColor = Color.White,
             containerColor = Color.White,
             indicator = {
                 it.forEachIndexed { index, tabPosition ->
@@ -163,23 +169,82 @@ fun TabsSection() {
             modifier = Modifier.fillMaxWidth()
         ) { pageIndex ->
             when(pageIndex) {
-                PAGE_FILTER -> FilterSection()
-                PAGE_SORTING -> SortingSection()
+                PAGE_FILTER -> {
+                    val categories = listOf("Headphone", "Computer", "Laptop")
+                    FilterSection(categories, onDismissRequest)
+                }
+                PAGE_SORTING -> {
+                    val sortingCategories = listOf("Name (A-Z)", "Name(Z-A)", "Price(High-Low)", "Price(Low-High)")
+                    SortingSection(sortingCategories, onDismissRequest)
+                }
             }
         }
     }
 }
 
 @Composable
-fun FilterSection() {
+fun FilterSection(categories: List<String>, onDismissRequest: () -> Unit) {
     Column(
         modifier = Modifier
-            .padding(horizontal = 24.dp, vertical = 16.dp)
             .fillMaxSize()
+            .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
         PriceSliderSection()
-        DefaultDivider(vertical = 20.dp, horizontal = 0.dp)
-        CategorySection()
+        Spacer(modifier = Modifier.height(8.dp))
+        CategorySection(categories)
+        ButtonSection(
+            onCancelClick = onDismissRequest,
+            onApplyClick = {}
+        )
+    }
+}
+
+
+@Composable
+fun SortingSection(sortingCategories: List<String>, onDismissRequest: () -> Unit) {
+    var checkedCategoryIndex by remember { mutableIntStateOf(0) }
+    Column(
+        modifier = Modifier
+            .padding(top = 8.dp, bottom = 16.dp, start = 24.dp, end = 24.dp)
+            .fillMaxSize()
+    ) {
+        sortingCategories.forEachIndexed { index, category ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                DefaultText(text = category)
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    RoundedCornerCheckbox(
+                        size = 20f,
+                        checkedColor = colorResource(id = R.color.green_checkbox),
+                        shape = CircleShape,
+                        isChecked = checkedCategoryIndex == index,
+                        onValueChange = {
+                            checkedCategoryIndex = index
+                        }
+                    )
+
+                }
+            }
+            if (index != sortingCategories.size - 1) {
+                DefaultDivider(
+                    start = 0.dp,
+                    end = 0.dp,
+                    top = 4.dp,
+                    bottom = 0.dp,
+                    color = colorResource(id = R.color.half_grey)
+                )
+            }
+
+        }
+        ButtonSection(
+            onCancelClick = onDismissRequest,
+            onApplyClick = {}
+        )
     }
 }
 
@@ -237,39 +302,76 @@ fun SliderThumb() {
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CategorySection() {
-    var isChecked by remember { mutableStateOf(false) }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+fun CategorySection(categories: List<String>) {
+    var checkedCategoryIndex by remember { mutableIntStateOf(0) }
+    CompositionLocalProvider(
+        LocalOverscrollConfiguration provides OverscrollConfiguration(
+            glowColor = Color.White,
+            drawPadding = PaddingValues()
+        )
     ) {
-        DefaultText(text = "Computer")
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterEnd
+        LazyColumn(
+            modifier = Modifier.height(200.dp)
         ) {
-            Checkbox(
-                modifier = Modifier.align(Alignment.CenterEnd),
-                checked = isChecked,
-                onCheckedChange = {
-                    isChecked = it
-                },
-                colors = CheckboxDefaults.colors(
-                    uncheckedColor = colorResource(id = R.color.half_grey),
-                    checkedColor = colorResource(id = R.color.green_checkbox)
+            items(categories.size) { itemIndex ->
+                DefaultDivider(
+                    start = 0.dp,
+                    end = 0.dp,
+                    top = 4.dp,
+                    bottom = 0.dp,
+                    color = colorResource(id = R.color.half_grey)
                 )
-            )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DefaultText(text = categories[itemIndex])
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        RoundedCornerCheckbox(
+                            size = 20f,
+                            checkedColor = colorResource(id = R.color.green_checkbox),
+                            isChecked = checkedCategoryIndex == itemIndex,
+                            onValueChange = {
+                                checkedCategoryIndex = itemIndex
+                            }
+                        )
+
+                    }
+                }
+            }
         }
     }
+
 }
 
 @Composable
-fun SortingSection() {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(text = "Sorting")
+fun ButtonSection(
+    onCancelClick: () -> Unit,
+    onApplyClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            OutlinedButton(
+                modifier = Modifier.weight(0.5f),
+                onClick = { onCancelClick() },
+                text = "Cancel"
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            FullButton(
+                modifier = Modifier.weight(0.5f),
+                onClick = { onApplyClick() },
+                text = "Apply"
+            )
+        }
     }
 }
